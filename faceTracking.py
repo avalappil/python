@@ -8,6 +8,8 @@ cascade = LAUNCH_PATH + "/" + "Features/HaarCascades/face.xml"
 
 f = FaceRecognizer()
 cam = Camera()
+f.load(LAUNCH_PATH + "/" + "Features/FaceRecognizerData/GenderData.xml")
+w, h = f.imageSize
 
 def identifyGender():
     time.sleep(1)
@@ -19,8 +21,6 @@ def identifyGender():
             i = i + 1
         crop_image = feat.sortArea()[-1].crop()
         #feat.sortArea()[-1].draw()
-        f.load(LAUNCH_PATH + "/" + "Features/FaceRecognizerData/GenderData.xml")
-        w, h = f.imageSize
         crop_image = crop_image.resize(w, h)
         label, confidence = f.predict(crop_image)
         if label == 0:
