@@ -10,6 +10,7 @@ f = FaceRecognizer()
 cam = Camera()
 f.load(LAUNCH_PATH + "/" + "Features/FaceRecognizerData/GenderData.xml")
 w, h = f.imageSize
+draw_color = Color.YELLOW
 
 def identifyGender():
     time.sleep(1)
@@ -23,14 +24,15 @@ def identifyGender():
         #feat.sortArea()[-1].draw()
         crop_image = crop_image.resize(w, h)
         label, confidence = f.predict(crop_image)
+        img.dl().selectFont('purisa')
         if label == 0:
             print "Female"
-            img.drawText("Female" +  str(i) + " faces", fontsize=24)
+            img.drawText("Female" +  str(i) + " faces", color=draw_color,fontsize=24)
         else:
             print "Male"
-            img.drawText("Male"  +  str(i) + " faces", fontsize=24)
+            img.drawText("Male"  +  str(i) + " faces", color=draw_color,fontsize=24)
     else:
-        img.drawText("No face detected", fontsize=48)
+        img.drawText("No face detected", color=draw_color,fontsize=24)
     img.show()
 
 keeprunning = 0
