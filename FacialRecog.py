@@ -17,7 +17,8 @@ def getFaceRead(cam,myStr=""):
     count = 0
     disp = Display((640,480))
     show = 1;
-    while disp.isNotDone():
+    while count<3:
+        time.sleep(1)
         img = Image(name)
         fs = img.findHaarFeatures(cascade)
         if fs:
@@ -66,8 +67,8 @@ while disp.isNotDone():
                 img.drawText(name + "#"  + str(confidence),30,30,color=draw_color,fontsize=34)
                 print ("Name: " + str(name) + " confidence: " + str(confidence))
             else:
-                img.drawText("Not recoganized: " + name + "#"  + str(confidence),30,30,color=draw_color,fontsize=34)
-                print ("Name Not recoganized: " + str(name) + " confidence: " + str(confidence))                   
+                #img.drawText("Not recoganized: " + name + "#"  + str(confidence),30,30,color=draw_color,fontsize=34)
+                print ("Name Not recoganized: confidence: " + str(confidence))                   
         img.save(disp)
     except e:
         print ("There is an exception")
