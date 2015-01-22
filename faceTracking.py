@@ -13,7 +13,6 @@ w, h = f.imageSize
 draw_color = Color.YELLOW
 
 def identifyGender():
-    time.sleep(1)
     img = cam.getImage().flipHorizontal().scale(0.5)
     feat = img.findHaarFeatures(cascade)
     if feat:
