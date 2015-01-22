@@ -17,8 +17,8 @@ def getFaceRead(cam,myStr=""):
     count = 0
     disp = Display((640,480))
     show = 1;
-    while count<3:
-        time.sleep(1)
+    while count<10:
+        #time.sleep(1)
         img = Image(name)
         fs = img.findHaarFeatures(cascade)
         if fs:
