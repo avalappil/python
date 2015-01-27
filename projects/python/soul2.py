@@ -18,54 +18,54 @@ def setup():
 def loadData(str):
     print (str)
     if (str == "a"):
-    	serial.write("PL 1 SQ 14 ONCE<CR>")
+    	serial.write(bytes("PL 1 SQ 14 ONCE\r", 'UTF-8'))
     elif (str == "b"):
-    	serial.write("PL 1 SQ 23 ONCE<CR>")
+    	serial.write(bytes("PL 1 SQ 23 ONCE\r", 'UTF-8'))
     elif (str == "c"):
-    	serial.write("PL 1 SQ 15 ONCE<CR>")
+    	serial.write(bytes("PL 1 SQ 15 ONCE\r", 'UTF-8'))
     elif (str == "d"):
-    	serial.write("PL 1 SQ 4 ONCE<CR>")
+    	serial.write(bytes("PL 1 SQ 4 ONCE\r", 'UTF-8'))
     elif (str == "e"):
-    	serial.write("PL 1 SQ 5 ONCE<CR>")
+    	serial.write(bytes("PL 1 SQ 5 ONCE\r", 'UTF-8'))
     elif (str == "f"):
-    	serial.write("PL 1 SQ 12 ONCE<CR>")
+    	serial.write(bytes("PL 1 SQ 12 ONCE\r", 'UTF-8'))
     elif (str == "g"):
-    	serial.write("PL 1 SQ 0 ONCE<CR>")
+    	serial.write(bytes("PL 1 SQ 0 ONCE\r", 'UTF-8'))
     elif (str == "h"):
-    	serial.write("PL 1 SQ 13 ONCE<CR>")
+    	serial.write(bytes("PL 1 SQ 13 ONCE\r", 'UTF-8'))
     elif (str == "i"):
-    	serial.write("PL 1 SQ 9 ONCE<CR>")
+    	serial.write(bytes("PL 1 SQ 9 ONCE\r", 'UTF-8'))
     elif (str == "j"):
-    	serial.write("PL 1 SQ 8 ONCE<CR>")
+    	serial.write(bytes("PL 1 SQ 8 ONCE\r", 'UTF-8'))
     elif (str == "k"):
-    	serial.write("PL 1 SQ 1 ONCE<CR>")
+    	serial.write(bytes("PL 1 SQ 1 ONCE\r", 'UTF-8'))
     elif (str == "l"):
-    	serial.write("PL 1 SQ 2 ONCE<CR>")
+    	serial.write(bytes("PL 1 SQ 2 ONCE\r", 'UTF-8'))
     elif (str == "m"):
-    	serial.write("PL 1 SQ 3 ONCE<CR>")
+    	serial.write(bytes("PL 1 SQ 3 ONCE\r", 'UTF-8'))
     elif (str == "n"):
-    	serial.write("PL 1 SQ 16 ONCE<CR>")
+    	serial.write(bytes("PL 1 SQ 16 ONCE\r", 'UTF-8'))
     elif (str == "o"):
-    	serial.write("PL 1 SQ 17 ONCE<CR>")
+    	serial.write(bytes("PL 1 SQ 17 ONCE\r", 'UTF-8'))
     elif (str == "p"):
-    	serial.write("PL 1 SQ 19 ONCE<CR>")
+    	serial.write(bytes("PL 1 SQ 19 ONCE\r", 'UTF-8'))
     elif (str == "q"):
-    	serial.write("PL 1 SQ 21 ONCE<CR>")
+    	serial.write(bytes("PL 1 SQ 21 ONCE\r", 'UTF-8'))
     elif (str == "r"):
-    	serial.write("PL 1 SQ 1 ONCE<CR>")
+    	serial.write(bytes("PL 1 SQ 1 ONCE\r", 'UTF-8'))
     elif (str == "s"):
-    	serial.write("PL 1 SQ 10 ONCE<CR>")
+    	serial.write(bytes("PL 1 SQ 10 ONCE\r", 'UTF-8'))
     elif (str == "t"):
-    	serial.write("PL 1 SQ 20 ONCE<CR>")
+    	serial.write(bytes("PL 1 SQ 20 ONCE\r", 'UTF-8'))
     elif (str == "u"):
-    	serial.write("PL 1 SQ 6 ONCE<CR>")
+    	serial.write(bytes("PL 1 SQ 6 ONCE\r", 'UTF-8'))
     elif (str == "v"):
-    	serial.write("PL 1 SQ 7 ONCE<CR>")
+    	serial.write(bytes("PL 1 SQ 7 ONCE\r", 'UTF-8'))
     #elif (str == "w"):
-    	#serial.write("PL 1 SQ 1 ONCE<CR>")
+    	#serial.write(bytes("PL 1 SQ 1 ONCE\r", 'UTF-8'))
     #elif (str == "x"):
-    	#serial.write("PL 1 SQ 1 ONCE<CR>")
+    	#serial.write(bytes("PL 1 SQ 1 ONCE\r", 'UTF-8'))
     #elif (str == "y"):
-    	#serial.write("PL 1 SQ 1 ONCE<CR>")
+    	#serial.write(bytes("PL 1 SQ 1 ONCE\r", 'UTF-8'))
     #elif (str == "z"):
-    	#serial.write("PL 1 SQ 1 ONCE<CR>")
+    	#serial.write(bytes("PL 1 SQ 1 ONCE\r", 'UTF-8'))
