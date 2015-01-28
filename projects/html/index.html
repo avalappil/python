@@ -7,15 +7,34 @@
       <title>Soul Robot</title>
       <script type="text/javascript" src="/webiopi.js"></script>
       <script type="text/javascript">
+      var headPos = 1500
+      var minPos = 550
+      var maxPos = 2400
+      var mul = 0.09
          function init() {
          }
          function sendData(data) {
             $('#table').css('display','none');
             webiopi().callMacro("loadData", data - 1, processCompleted);
          }
-         function sendCharData(chr) {
-            $('#table').css('display','none');
-            webiopi().callMacro("loadData", chr, processCompleted);
+         function sendAngleData(chr) {
+            if (chr == 'l'){
+               headPos = headPos - 1;
+               if (headPos < minPos){
+                  headPos = minPos;
+               }
+            }
+            if (chr == 'r'){
+               headPos = headPos + 1;
+               if (headPos > maxPos){
+                  headPos = maxPos;
+               }
+            }
+            var curData =  headPos - 1500;
+            curData = curData * mul;
+            document.getElementById('pos').innerHTML = curData.toFixed(2);
+            dataToSnd = chr + "@" + headPos;
+            webiopi().callMacro("loadData", dataToSnd, processCompleted);
          }         
          function processCompleted(macroName, channel, data){
             console.log(data);
@@ -86,7 +105,7 @@
              border: 0 solid #000000;
              height: 240px;
              left: 0;
-             margin-top: 243px;
+             margin-top: 257px;
              top: 204px;
              width: 320px;
          }                  
@@ -107,10 +126,13 @@
          <div id="content" style="height: 100%; width: 100%;">            
             <div id="video" class="trPic">
                <center>
-                  <div class="left" onmousedown="TurnLeft()" onclick="sendCharData('l')"> </div> 
-                  <div class="right" onmousedown="TurnRight()" onclick="sendCharData('r')"> </div> 
+                  <div class="left" onmousedown="TurnLeft()" onclick="sendAngleData('l')"> </div> 
+                  <div class="right" onmousedown="TurnRight()" onclick="sendAngleData('r')"> </div> 
                </center>
-            <div style="clear:both"></div>   
+            <div style="clear:both"></div> 
+               <center>
+                  <div id="pos" style="font-size: 13px; margin-top: 9px; color: rgb(255, 0, 0);">0</div>
+               </center>             
             </div>
             <div style="clear:both"></div>
             <div id="table" class="keyClass">
