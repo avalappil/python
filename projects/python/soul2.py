@@ -1,5 +1,6 @@
 import webiopi
 import os,time
+import subprocess
 
 # import Serial driver
 from webiopi.devices.serial import Serial
@@ -12,7 +13,6 @@ def setup():
     # empty input buffer before starting processing
     while (serial.available() > 0):
         serial.readString()
-#    webiopi.sleep(1)
 
 @webiopi.macro
 def loadData(str):
@@ -63,9 +63,13 @@ def loadData(str):
     	serial.write(bytes("PL 1 SQ 7 ONCE\r", 'UTF-8'))
     #elif (str == "w"):
     	#serial.write(bytes("PL 1 SQ 1 ONCE\r", 'UTF-8'))
-    #elif (str == "x"):
-    	#serial.write(bytes("PL 1 SQ 1 ONCE\r", 'UTF-8'))
-    #elif (str == "y"):
-    	#serial.write(bytes("PL 1 SQ 1 ONCE\r", 'UTF-8'))
-    #elif (str == "z"):
-    	#serial.write(bytes("PL 1 SQ 1 ONCE\r", 'UTF-8'))
+    elif (str == "x"):
+        try:
+            subprocess.call("videostream/stream.sh")
+        except:
+            pass
+    elif (str == "y"):
+        try:
+            subprocess.call("videostream/unstream.sh")
+        except:
+            pass
