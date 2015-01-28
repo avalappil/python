@@ -19,20 +19,20 @@
          }
          function sendAngleData(chr) {
             if (chr == 'l'){
-               headPos = headPos - 1;
+               headPos = headPos - 55;
                if (headPos < minPos){
                   headPos = minPos;
                }
             }
             if (chr == 'r'){
-               headPos = headPos + 1;
+               headPos = headPos + 55;
                if (headPos > maxPos){
                   headPos = maxPos;
                }
             }
             var curData =  headPos - 1500;
             curData = curData * mul;
-            document.getElementById('pos').innerHTML = curData.toFixed(2);
+            document.getElementById('pos').innerHTML = curData.toFixed(0);
             dataToSnd = chr + "@" + headPos;
             webiopi().callMacro("loadData", dataToSnd, processCompleted);
          }         
