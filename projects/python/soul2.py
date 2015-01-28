@@ -63,13 +63,5 @@ def loadData(str):
     	serial.write(bytes("PL 1 SQ 7 ONCE\r", 'UTF-8'))
     #elif (str == "w"):
     	#serial.write(bytes("PL 1 SQ 1 ONCE\r", 'UTF-8'))
-    elif (str == "x"):
-        try:
-            subprocess.call("videostream/stream.sh")
-        except:
-            pass
-    elif (str == "y"):
-        try:
-            subprocess.call("videostream/unstream.sh")
-        except:
-            pass
+    #elif (str == "x"):
+    #elif (str == "y"):
