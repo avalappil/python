@@ -21,30 +21,95 @@
       </script>
       <style type="text/css">
          button.small {
-         margin: 1px 1px 1px 1px;
-         width: 24px;
-         height: 24px;
-         font-weight: bold;
-         color: black;
+            margin: 1px 1px 1px 1px;
+            width: 24px;
+            height: 24px;
+            font-weight: bold;
+            color: black;
          }
          button {
-          background: none repeat scroll 0 0 #47B224;
-          color: #FFFFFF;
-          border-radius: 5px;
-          border: 5px;
-          font-size: 7pt;
-          height: 28px;
-          width: 60px;
+             background: none repeat scroll 0 0 #47B224;
+             color: #FFFFFF;
+             border-radius: 5px;
+             border: 5px;
+             font-size: 7pt;
+             height: 28px;
+             width: 60px;
          }
+         .trPic .left{ 
+            background: url("arrow_left.png") no-repeat scroll center center rgba(0, 0, 0, 0);
+            float: left;
+            height: 235px;
+            left: 480px;
+            opacity: 0.2;
+            top: 0;
+            width: 100px;
+            z-index: 20;
+         }
+
+         .trPic .right{ 
+            background: url("arrow_right.png") no-repeat scroll center center rgba(0, 0, 0, 0);
+            float: right;
+            height: 235px;
+            left: 480px;
+            opacity: 0.2;
+            top: 0;
+            width: 100px;
+            z-index: 20;
+         }
+
+         .trPic .stop{ 
+            position:absolute; 
+            top:140px;
+            left:160px; 
+            width:320px; 
+            height:200px;  
+            opacity:0.1;
+            z-index: 20;
+            background: url(stop.png) no-repeat;
+            background-position: center center; 
+            border:0px solid #000000;
+         } 
+         .trPic{ 
+            position:absolute; 
+            top:0px;
+            width:320px; 
+            height:240px; 
+            background: url(http://10.0.1.17:8080/?action=stream) no-repeat; 
+            border:0px solid #000000; 
+         }  
+         .keyClass{ 
+             border: 0 solid #000000;
+             height: 240px;
+             left: 0;
+             margin-top: 243px;
+             top: 204px;
+             width: 320px;
+         }                  
+         .left:hover { 
+            opacity:0.7; 
+         }
+
+         .right:hover { 
+            opacity:0.7; 
+         }
+
+         .stop:hover { 
+            opacity:0.7; 
+         }                 
       </style>
    </head>
    <body>
-      <center>
-         <div id="content" style="height: 100%; width: 100%;" align="center">
-            <div id="video">
-               <center><img src="http://10.0.1.17:8080/?action=stream" height="240" width="320"> </center>
+         <div id="content" style="height: 100%; width: 100%;">            
+            <div id="video" class="trPic">
+               <center>
+                  <div class="left" onmousedown="TurnLeft()"> </div> 
+                  <div class="right" onmousedown="TurnRight()"> </div> 
+               </center>
+            <div style="clear:both"></div>   
             </div>
-            <div id="table" style="top: -150px; z-index: 2;" align="center" height="240" width="320">
+            <div style="clear:both"></div>
+            <div id="table" class="keyClass">
                <table style="width: 50px; height: 50px;">
                   <tbody>
                      <tr>
@@ -86,6 +151,5 @@
                </table>               
             </div>
          </div>
-      </center>
    </body>
 </html>
