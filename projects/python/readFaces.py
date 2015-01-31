@@ -26,3 +26,5 @@ while True:
 	    	flags = cv2.cv.CV_HAAR_SCALE_IMAGE
 		)
 		print "Found {0} faces!".format(len(faces))
+	except:
+		pass
