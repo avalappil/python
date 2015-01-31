@@ -11,6 +11,7 @@ imgName = "snapShotImg.jpg"
 faceCascade = cv2.CascadeClassifier(cascade)
 
 while True:
+	time.sleep(1)
 	try:
 		urllib.urlretrieve(URL, imgName)
 		time.sleep(2);	
