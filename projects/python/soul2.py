@@ -38,7 +38,7 @@ def loadData(strData):
     elif (strData == "10"):
     	serial.write(bytes("PL 1 SQ 10 ONCE\r", 'UTF-8'))
     elif (strData == "11"):
-    	serial.write(bytes("PL 1 SQ 11 ONCE\r", 'UTF-8'))
+    	serial.write(bytes("PL 1 SQ 11 \r", 'UTF-8'))
     elif (strData == "12"):
     	serial.write(bytes("PL 1 SQ 12 ONCE\r", 'UTF-8'))
     elif (strData == "13"):
@@ -56,7 +56,13 @@ def loadData(strData):
     elif (strData == "19"):
     	serial.write(bytes("PL 1 SQ 19 ONCE\r", 'UTF-8'))
     elif (strData == "20"):
-    	serial.write(bytes("PL 1 SQ 20 ONCE\r", 'UTF-8'))
+    	serial.write(bytes("PL 1 SQ 20 \r", 'UTF-8'))
+    elif (strData == "21"):
+        serial.write(bytes("PL 1 SQ 21 ONCE\r", 'UTF-8'))
+    elif (strData == "22"):
+        serial.write(bytes("PL 1 SQ 22 ONCE\r", 'UTF-8'))
+    elif (strData == "23"):
+        serial.write(bytes("PL 1 SQ 23 ONCE\r", 'UTF-8'))
     elif (strData != "" and strData.startswith('l')):        
         headPos = strData.split('@')
         data = "#15 P" + headPos[1] + " T1000"
@@ -67,5 +73,15 @@ def loadData(strData):
         data = "#15 P" + headPos[1] + " T1000"
         webiopi.debug(data)
         serial.write(bytes(data + "\r", 'UTF-8'))
+    elif (strData != "" and strData.startswith('t')):
+        headPos = strData.split('@')
+        data = "#31 P" + headPos[1] + " T1000"
+        webiopi.debug(data)
+        serial.write(bytes(data + "\r", 'UTF-8'))
+    elif (strData != "" and strData.startswith('b')):
+        headPos = strData.split('@')
+        data = "#31 P" + headPos[1] + " T1000"
+        webiopi.debug(data)
+        serial.write(bytes(data + "\r", 'UTF-8'))        
     #elif (strData == "x"):
     #elif (strData == "y"):
