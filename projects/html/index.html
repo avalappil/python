@@ -16,11 +16,21 @@
       var minVerPos = 1500
       var maxVerPos = 2000 
 
+      var walkingForward = false;
+
          function init() {
          }
          function sendData(data) {
             $('#table').css('display','none');
-            webiopi().callMacro("loadData", data - 1, processCompleted);
+            if (data == 21 or data == 12){
+              walkingForward = true;
+            }
+            if (walkingForward){
+              walkingForward = false;
+              webiopi().callMacro("loadData", "stop");  
+            }else{
+              webiopi().callMacro("loadData", dataToSnd, processCompleted);
+            }
          }
          function sendAngleData(chr) {
             if (chr == 'l'){
