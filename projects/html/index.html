@@ -40,7 +40,7 @@
             document.getElementById('pos').innerHTML = curData.toFixed(0);
             var dataToSnd = chr + "@" + headPos;
             console.log(dataToSnd);
-            //webiopi().callMacro("loadData", dataToSnd, processCompleted);
+            webiopi().callMacro("loadData", dataToSnd, processCompleted);
          } 
          function sendAngleDataVertical(chr) {
             if (chr == 'b'){
@@ -60,13 +60,13 @@
             document.getElementById('vpos').innerHTML = curData.toFixed(0);
             var dataToSnd = chr + "@" + verPos;
             console.log(dataToSnd);
-            //webiopi().callMacro("loadData", dataToSnd, processCompleted);
+            webiopi().callMacro("loadData", dataToSnd, processCompleted);
          }                  
          function processCompleted(macroName, channel, data){
             console.log(data);
             $('#table').css('display','block');
          }
-         //webiopi().ready(init);
+         webiopi().ready(init);
       </script>
       <style type="text/css">
          button.small {
@@ -202,7 +202,7 @@
                   <tbody>
                      <tr>
                         <td align="center"><button class="" type="button" onclick="sendData(15)">move left</button></td>
-                        <td align="center"><button class="" type="button" onclick="sendData(12)">Forward</button></td>
+                        <td align="center"><button class="" type="button" onclick="sendData(21)">Forward</button></td>
                         <td align="center"><button class="" type="button" onclick="sendData(16)">move right</button></td>
                         <td align="center"><button class="" type="button" onclick="sendData(5)">Welcome</button></td>
                         <td align="center"><button class="" type="button" onclick="sendData(11)">Salute</button></td>
@@ -211,7 +211,7 @@
                         <td align="center"><button class="" type="button" onclick="sendData(13)">turn left</button></td>
                         <td align="center"><button class="" type="button" onclick="sendData(1)">stand</button></td>
                         <td align="center"><button class="" type="button" onclick="sendData(14)">turn right</button></td>
-                        <td align="center"><button class="" type="button" onclick="sendData(20)">walk 2</button></td>                        
+                        <td align="center"><button class="" type="button" onclick="sendData(12)">Carpet walk</button></td>                        
                         <td style="center"><button type="button" onclick="sendData(3)">fight</button></td>
                      </tr>
                      <tr>                        
@@ -223,10 +223,17 @@
                      </tr>
                      <tr>
                         <td style="center"><button type="button" onclick="sendData(4)">hand dance</button></td>
-                        <td align="center"><button class="" type="button" onclick="sendData(17)">dance 2</button></td>
-                        <td align="center"><button class="" type="button" onclick="sendData(19)">dance 3</button></td>                        
+                        <td align="center"><button class="" type="button" onclick="sendData(17)">dance 1</button></td>
+                        <td align="center"><button class="" type="button" onclick="sendData(19)">dance 2</button></td>                        
                         <td style="center"><button type="button" onclick="sendData(2)">sit</button></td>                        
                         <td align="center"><button class="" type="button" onclick="sendData(18)">left kick</button></td>                        
+                     </tr>
+                     <tr>
+                        <td style="center"><button type="button" onclick="sendData(22)">Take rest</button></td>
+                        <td align="center"><button class="" type="button" onclick="sendData(23)">Get up</button></td>
+                        <td align="center"><button class="" type="button" ></button></td>                        
+                        <td style="center"><button type="button" ></button></td>                        
+                        <td align="center"><button class="" type="button" ></button></td>                        
                      </tr>
                   </tbody>
                </table>               
