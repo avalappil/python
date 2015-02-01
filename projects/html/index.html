@@ -7,10 +7,15 @@
       <title>Soul Robot</title>
       <script type="text/javascript" src="/webiopi.js"></script>
       <script type="text/javascript">
-      var headPos = 1500
+      var headPos = 1500      
       var minPos = 550
       var maxPos = 2400
       var mul = 0.09
+
+      var verPos = 1500
+      var minVerPos = 1500
+      var maxVerPos = 2000 
+
          function init() {
          }
          function sendData(data) {
@@ -33,14 +38,35 @@
             var curData =  headPos - 1500;
             curData = curData * mul;
             document.getElementById('pos').innerHTML = curData.toFixed(0);
-            dataToSnd = chr + "@" + headPos;
-            webiopi().callMacro("loadData", dataToSnd, processCompleted);
-         }         
+            var dataToSnd = chr + "@" + headPos;
+            console.log(dataToSnd);
+            //webiopi().callMacro("loadData", dataToSnd, processCompleted);
+         } 
+         function sendAngleDataVertical(chr) {
+            if (chr == 'b'){
+               verPos = verPos - 55;
+               if (verPos < minVerPos){
+                  verPos = minVerPos;
+               }
+            }
+            if (chr == 't'){
+               verPos = verPos + 55;
+               if (verPos > maxVerPos){
+                  verPos = maxVerPos;
+               }
+            }
+            var curData =  verPos - 1500;
+            curData = curData * mul;
+            document.getElementById('vpos').innerHTML = curData.toFixed(0);
+            var dataToSnd = chr + "@" + verPos;
+            console.log(dataToSnd);
+            //webiopi().callMacro("loadData", dataToSnd, processCompleted);
+         }                  
          function processCompleted(macroName, channel, data){
             console.log(data);
             $('#table').css('display','block');
          }
-         webiopi().ready(init);
+         //webiopi().ready(init);
       </script>
       <style type="text/css">
          button.small {
@@ -59,26 +85,48 @@
              height: 28px;
              width: 60px;
          }
-         .trPic .left{ 
-            background: url("arrow_left.png") no-repeat scroll center center rgba(0, 0, 0, 0);
-            float: left;
-            height: 235px;
-            left: 480px;
-            opacity: 0.2;
-            top: 0;
-            width: 100px;
-            z-index: 20;
+
+         .trPic .left {
+             background: url("arrow_left.png") no-repeat scroll center center rgba(0, 0, 0, 0);
+             float: left;
+             height: 235px;
+             left: 480px;
+             margin-top: -91px;
+             opacity: 0.2;
+             width: 100px;
+             z-index: 20;
          }
 
-         .trPic .right{ 
-            background: url("arrow_right.png") no-repeat scroll center center rgba(0, 0, 0, 0);
-            float: right;
-            height: 235px;
-            left: 480px;
-            opacity: 0.2;
-            top: 0;
-            width: 100px;
-            z-index: 20;
+         .trPic .right {
+             background: url("arrow_right.png") no-repeat scroll center center rgba(0, 0, 0, 0);
+             float: right;
+             height: 235px;
+             left: 480px;
+             margin-top: -91px;
+             opacity: 0.2;
+             width: 100px;
+             z-index: 20;
+         }
+
+         .trPic .top {
+             background: url("arrow_top.png") no-repeat scroll center center rgba(0, 0, 0, 0);
+             float: left;
+             height: 90px;
+             left: 480px;
+             opacity: 0.2;
+             top: 0;
+             width: 100px;
+             z-index: 20;
+         }
+
+         .trPic .bottom {
+             background: url("arrow_bottom.png") no-repeat scroll center center rgba(0, 0, 0, 0);
+             float: right;
+             height: 90px;
+             left: 480px;
+             margin-top: -88px;
+             opacity: 0.2;
+             z-index: 20;
          }
 
          .trPic .stop{ 
@@ -117,6 +165,14 @@
             opacity:0.7; 
          }
 
+         .top:hover { 
+            opacity:0.7; 
+         }
+
+         .bottom:hover { 
+            opacity:0.7; 
+         }         
+
          .stop:hover { 
             opacity:0.7; 
          }                 
@@ -126,12 +182,18 @@
          <div id="content" style="height: 100%; width: 100%;">            
             <div id="video" class="trPic">
                <center>
-                  <div class="left" onmousedown="TurnLeft()" onclick="sendAngleData('l')"> </div> 
-                  <div class="right" onmousedown="TurnRight()" onclick="sendAngleData('r')"> </div> 
+                  <div style="width:100%" class="top" onclick="sendAngleDataVertical('t')" > </div>
+                  <div style="width:100%">
+                     <div class="left" onclick="sendAngleData('l')" > </div>
+                     <div class="right" onclick="sendAngleData('r')" > </div>
+                  </div>
+                  <div class="bottom" style="width:100%" onclick="sendAngleDataVertical('b')"> </div>
                </center>
             <div style="clear:both"></div> 
                <center>
-                  <div id="pos" style="font-size: 13px; margin-top: 9px; color: rgb(255, 0, 0);">0</div>
+                  <div style="font-size: 13px; margin-top: 9px; color: green;">
+                    <span id="pos">0</span>,&nbsp;<span id="vpos">0</span>
+                  </div>  
                </center>             
             </div>
             <div style="clear:both"></div>
