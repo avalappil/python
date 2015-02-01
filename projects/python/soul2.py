@@ -62,7 +62,7 @@ def loadData(strData):
     elif (strData == "22"):
         serial.write(bytes("PL 1 SQ 22 ONCE\r", 'UTF-8'))
     elif (strData == "23"):
-        serial.write(bytes("PL 1 SQ 23 ONCE\r", 'UTF-8'))
+        serial.write(bytes("PL 1\r", 'UTF-8')) #stop the player
     elif (strData != "" and strData.startswith('l')):        
         headPos = strData.split('@')
         data = "#15 P" + headPos[1] + " T1000"

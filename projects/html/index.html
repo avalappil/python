@@ -22,14 +22,15 @@
          }
          function sendData(data) {
             $('#table').css('display','none');
-            if (data == 21 or data == 12){
+            if (data == 21 || data == 12){
               walkingForward = true;
             }
             if (walkingForward){
               walkingForward = false;
-              webiopi().callMacro("loadData", "stop");  
+              dataToSnd = 24;
+              webiopi().callMacro("loadData", dataToSnd - 1);  
             }else{
-              webiopi().callMacro("loadData", dataToSnd, processCompleted);
+              webiopi().callMacro("loadData", dataToSnd - 1, processCompleted);
             }
          }
          function sendAngleData(chr) {
@@ -185,7 +186,17 @@
 
          .stop:hover { 
             opacity:0.7; 
-         }                 
+         }
+        .danger {
+            background-color: #d9534f;
+            border-color: #d43f3a;
+            color: #fff;
+        }
+        .info {
+            background-color: #5bc0de;
+            border-color: #46b8da;
+            color: #fff;
+        }        
       </style>
    </head>
    <body>
@@ -210,40 +221,40 @@
             <div id="table" class="keyClass">
                <table style="width: 50px; height: 50px;">
                   <tbody>
+                     <tr>                        
+                        <td align="center"><button id="other" class="" type="button" onclick="sendData(23)">Get up</button></td>
+                        <td align="center"><button id="other"  class="" type="button" onclick="sendData(1)">stand</button></td>
+                        <td align="center"><button class="info" type="button" onclick="sendData(12)">Carpet walk</button></td>  
+                        <td style="center"><button id="other"  type="button" onclick="sendData(22)">Take rest</button></td>
+                        <td align="center"><button id="other"  class="" type="button" onclick="sendData(5)">Welcome</button></td>
+                     </tr>                    
                      <tr>
-                        <td align="center"><button class="" type="button" onclick="sendData(15)">move left</button></td>
-                        <td align="center"><button class="" type="button" onclick="sendData(21)">Forward</button></td>
-                        <td align="center"><button class="" type="button" onclick="sendData(16)">move right</button></td>
-                        <td align="center"><button class="" type="button" onclick="sendData(5)">Welcome</button></td>
-                        <td align="center"><button class="" type="button" onclick="sendData(11)">Salute</button></td>
+                        <td style="center"><button id="other"  type="button" onclick="sendData(2)">sit</button></td>
+                        <td align="center"><button id="other"  class="" type="button" onclick="sendData(15)">move left</button></td>
+                        <td align="center"><button class="info" type="button" onclick="sendData(21)">Forward</button></td>
+                        <td align="center"><button id="other"  class="" type="button" onclick="sendData(16)">move right</button></td>
+                        <td align="center"><button id="other"  class="" type="button" onclick="sendData(11)">Salute</button></td>
                      </tr>
                      <tr>
-                        <td align="center"><button class="" type="button" onclick="sendData(13)">turn left</button></td>
-                        <td align="center"><button class="" type="button" onclick="sendData(1)">stand</button></td>
-                        <td align="center"><button class="" type="button" onclick="sendData(14)">turn right</button></td>
-                        <td align="center"><button class="" type="button" onclick="sendData(12)">Carpet walk</button></td>                        
-                        <td style="center"><button type="button" onclick="sendData(3)">fight</button></td>
+                        <td style="center"><button id="other"  type="button" onclick="sendData(3)">fight</button></td>
+                        <td align="center"><button id="other"  class="info" type="button" onclick="sendData(13)">turn left</button></td>
+                        <td align="center"><button id="other"  class="danger" type="button" onclick="sendData(24)">Stop</button></td>
+                        <td align="center"><button id="other"  class="info" type="button" onclick="sendData(14)">turn right</button></td>                    
+                        <td align="center"><button id="other"  class="" type="button" onclick="sendData(18)">left kick</button></td>
                      </tr>
                      <tr>                        
-                        <td align="center"><button class="" type="button" onclick="sendData(9)">from front</button></td>
-                        <td align="center"><button class="" type="button" onclick="sendData(10)">from back</button></td>
-                        <td align="center"><button class="" type="button" onclick="sendData(6)">Laydown</button></td>
-                        <td align="center"><button class="" type="button" onclick="sendData(7)">push up</button></td>
-                        <td align="center"><button class="" type="button" onclick="sendData(8)">1 pushup</button></td>                        
+                        <td align="center"><button id="other"  class="" type="button" onclick="sendData(9)">from front</button></td>
+                        <td align="center"><button id="other"  class="" type="button" onclick="sendData(10)">from back</button></td>
+                        <td align="center"><button id="other"  class="" type="button" onclick="sendData(6)">Laydown</button></td>
+                        <td align="center"><button id="other"  class="" type="button" onclick="sendData(7)">push up</button></td>
+                        <td align="center"><button id="other"  class="" type="button" onclick="sendData(8)">1 pushup</button></td>
                      </tr>
                      <tr>
-                        <td style="center"><button type="button" onclick="sendData(4)">hand dance</button></td>
-                        <td align="center"><button class="" type="button" onclick="sendData(17)">dance 1</button></td>
-                        <td align="center"><button class="" type="button" onclick="sendData(19)">dance 2</button></td>                        
-                        <td style="center"><button type="button" onclick="sendData(2)">sit</button></td>                        
-                        <td align="center"><button class="" type="button" onclick="sendData(18)">left kick</button></td>                        
-                     </tr>
-                     <tr>
-                        <td style="center"><button type="button" onclick="sendData(22)">Take rest</button></td>
-                        <td align="center"><button class="" type="button" onclick="sendData(23)">Get up</button></td>
-                        <td align="center"><button class="" type="button" ></button></td>                        
-                        <td style="center"><button type="button" ></button></td>                        
-                        <td align="center"><button class="" type="button" ></button></td>                        
+                        <td align="center"><button id="other"  class="" type="button"></button></td>
+                        <td style="center"><button id="other"  type="button" onclick="sendData(4)">hand dance</button></td>
+                        <td align="center"><button id="other"  class="" type="button" onclick="sendData(17)">dance 1</button></td>
+                        <td align="center"><button id="other"  class="" type="button" onclick="sendData(19)">dance 2</button></td>
+                        <td align="center"><button id="other"  class="" type="button"></button></td>
                      </tr>
                   </tbody>
                </table>               
