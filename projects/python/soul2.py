@@ -13,18 +13,15 @@ def setup():
     while (serial.available() > 0):
         serial.readstrDataing()
 
-def loop():
-    webiopi.sleep(1)
-    try:
-        with open("faces.txt") as file:
-            nfaces = file.readlines()
-        webiopi.debug(nfaces)
-    except:
-        pass
+@webiopi.macro
+def setfaces(aData):
+    global nfaces
+    nfaces = aData
 
 @webiopi.macro
 def numoffaces(aData):
-    return global nfaces
+    global nfaces
+    return nfaces
 
 @webiopi.macro
 def loadData(strData):

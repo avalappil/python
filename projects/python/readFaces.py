@@ -4,11 +4,16 @@ import sys
 import SimpleCV
 from SimpleCV import *
 import urllib
+import requests
 
 cascade = "/home/pi/Code/SimpleCV/SimpleCV/Features/HaarCascades/face.xml"
 URL = "http://127.0.0.1:8421/?action=snapshot"
 imgName = "snapShotImg.jpg"
 faceCascade = cv2.CascadeClassifier(cascade)
+username = 'webiopi'
+password = 'raspberry'
+
+url = "http://127.0.0.1:8000/macros/setfaces/"
 
 while True:
 	time.sleep(1)
@@ -26,8 +31,10 @@ while True:
 	    	minSize=(30, 30),
 	    	flags = cv2.cv.CV_HAAR_SCALE_IMAGE
 		)
-		f = open('faces.txt','w')
-		f.write(str(len(faces)) + '\n')
-		f.close()
+		print (len(faces))
+		str = url + str(len(faces))
+		r = requests.post(str, auth=(username, password))
 	except:
+		str = url + "0"
+		r = requests.post(str, auth=(username, password))
 		pass
