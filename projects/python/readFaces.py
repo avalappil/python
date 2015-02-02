@@ -13,7 +13,7 @@ faceCascade = cv2.CascadeClassifier(cascade)
 username = 'webiopi'
 password = 'raspberry'
 
-url = "http://127.0.0.1:8000/macros/setfaces/"
+url = "http://127.0.1.1:8000/macros/setfaces/"
 
 while True:
 	time.sleep(1)
@@ -31,8 +31,9 @@ while True:
 	    	minSize=(30, 30),
 	    	flags = cv2.cv.CV_HAAR_SCALE_IMAGE
 		)
-		print (len(faces))
+		#print (len(faces))
 		str = url + str(len(faces))
+		print (str)
 		r = requests.post(str, auth=(username, password))
 	except:
 		str = url + "0"
