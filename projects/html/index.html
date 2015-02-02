@@ -87,9 +87,6 @@
             console.log(data);
             document.getElementById('faces').innerHTML = data;
          }
-         window.setInterval(function(){
-          readFaces(); 
-         }, 1000);
          webiopi().ready(init);
       </script>
       <style type="text/css">
@@ -177,7 +174,7 @@
              border: 0 solid #000000;
              height: 240px;
              left: 0;
-             margin-top: 283px;
+             margin-top: 260px;
              top: 204px;
              width: 320px;
          }                  
@@ -227,10 +224,7 @@
                <center>
                   <div style="font-size: 13px; margin-top: 9px; color: green;">
                     <span id="pos">0</span>,&nbsp;<span id="vpos">0</span>
-                  </div>
-                  <div style="font-size: 13px; margin-top: 9px; color: green;">
-                    Number of faces:&nbsp;<span id="faces">0</span>
-                  </div>                   
+                  </div>                  
                </center>             
             </div>
             <div style="clear:both"></div>
