@@ -36,5 +36,8 @@ while True:
 		r = requests.post(str, auth=(username, password))
 	except:
 		str = url + "0"
-		r = requests.post(str, auth=(username, password))
+		try:
+			r = requests.post(str, auth=(username, password))
+		except:
+			pass
 		pass
