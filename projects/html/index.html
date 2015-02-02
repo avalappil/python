@@ -77,6 +77,18 @@
             console.log(data);
             $('#table').css('display','block');
          }
+
+         function readFaces(){
+            console.log("readFaces");
+            webiopi().callMacro("numoffaces", "a", displayNoFaces);          
+         }
+
+         function displayNoFaces(macroName, channel, data){
+          console.log(data);
+         }
+         window.setInterval(function(){
+          readFaces(); 
+         }, 1000);
          webiopi().ready(init);
       </script>
       <style type="text/css">

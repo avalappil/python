@@ -26,6 +26,8 @@ while True:
 	    	minSize=(30, 30),
 	    	flags = cv2.cv.CV_HAAR_SCALE_IMAGE
 		)
-		print "Found {0} faces!".format(len(faces))
+		f = open('faces.txt','w')
+		f.write(str(len(faces)) + '\n')
+		f.close()
 	except:
 		pass
