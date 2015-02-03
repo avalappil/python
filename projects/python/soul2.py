@@ -93,6 +93,36 @@ def loadData(strData):
         headPos = strData.split('@')
         data = "#31 P" + headPos[1] + " T1000"
         webiopi.debug(data)
-        serial.write(bytes(data + "\r", 'UTF-8'))        
+        serial.write(bytes(data + "\r", 'UTF-8')) 
+    elif (strData != "" and strData.startswith('d')):
+        headPos = strData.split('@')
+        data = "#8 P" + headPos[1] + " T1000"
+        webiopi.debug(data)
+        serial.write(bytes(data + "\r", 'UTF-8'))     
+    elif (strData != "" and strData.startswith('e')):
+        headPos = strData.split('@')
+        data = "#24 P" + headPos[1] + " T1000"
+        webiopi.debug(data)
+        serial.write(bytes(data + "\r", 'UTF-8'))     
+    elif (strData != "" and strData.startswith('f')):
+        headPos = strData.split('@')
+        data = "#9 P" + headPos[1] + " T1000"
+        webiopi.debug(data)
+        serial.write(bytes(data + "\r", 'UTF-8'))     
+    elif (strData != "" and strData.startswith('g')):
+        headPos = strData.split('@')
+        data = "#25 P" + headPos[1] + " T1000"
+        webiopi.debug(data)
+        serial.write(bytes(data + "\r", 'UTF-8'))     
+    elif (strData != "" and strData.startswith('h')):
+        headPos = strData.split('@')
+        data = "#26 P" + headPos[1] + " T1000"
+        webiopi.debug(data)
+        serial.write(bytes(data + "\r", 'UTF-8'))     
+    elif (strData != "" and strData.startswith('i')):
+        headPos = strData.split('@')
+        data = "#10 P" + headPos[1] + " T1000"
+        webiopi.debug(data)
+        serial.write(bytes(data + "\r", 'UTF-8'))
     #elif (strData == "x"):
     #elif (strData == "y"):

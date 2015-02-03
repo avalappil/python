@@ -6,269 +6,433 @@
          content="height = device-height, width = 420, user-scalable = no">
       <title>Soul Robot</title>
       <script type="text/javascript" src="/webiopi.js"></script>
+      <link rel="stylesheet" href="jquery-ui.css">
       <script type="text/javascript">
-      var headPos = 1500      
-      var minPos = 550
-      var maxPos = 2400
-      var mul = 0.09
-
-      var verPos = 1500
-      var minVerPos = 1500
-      var maxVerPos = 2000 
-
-      var walkingForward = false;
-
-         function init() {
-         }
-         function sendData(data) {
-            $('#table').css('display','none');
-            if (data == 21 || data == 12){
-              walkingForward = true;
+         var headPos = 1500      
+         var minPos = 550
+         var maxPos = 2400
+         var mul = 0.09
+         
+         var verPos = 1500
+         var minVerPos = 1500
+         var maxVerPos = 2000 
+         
+         var walkingForward = false;
+         
+            function init() {
+              var script = document.createElement('script');
+              script.src = "jquery-ui.js";
+              document.getElementsByTagName('head')[0].appendChild(script);
+              toggle(0);
             }
-            if (walkingForward){
-              walkingForward = false;
-              dataToSnd = 24;
-              webiopi().callMacro("loadData", dataToSnd - 1);  
-            }else{
-              webiopi().callMacro("loadData", dataToSnd - 1, processCompleted);
-            }
-         }
-         function sendAngleData(chr) {
-            if (chr == 'l'){
-               headPos = headPos - 55;
-               if (headPos < minPos){
-                  headPos = minPos;
+            function sendData(data) {
+               $('#table').css('display','none');
+               if (data == 21 || data == 12){
+                 walkingForward = true;
+               }
+               if (walkingForward){
+                 walkingForward = false;
+                 dataToSnd = 24;
+                 webiopi().callMacro("loadData", dataToSnd - 1);  
+               }else{
+                 webiopi().callMacro("loadData", dataToSnd - 1, processCompleted);
                }
             }
-            if (chr == 'r'){
-               headPos = headPos + 55;
-               if (headPos > maxPos){
-                  headPos = maxPos;
+            function sendAngleData(chr) {
+               if (chr == 'l'){
+                  headPos = headPos - 55;
+                  if (headPos < minPos){
+                     headPos = minPos;
+                  }
                }
-            }
-            var curData =  headPos - 1500;
-            curData = curData * mul;
-            document.getElementById('pos').innerHTML = curData.toFixed(0);
-            var dataToSnd = chr + "@" + headPos;
-            console.log(dataToSnd);
-            webiopi().callMacro("loadData", dataToSnd, processCompleted);
-         } 
-         function sendAngleDataVertical(chr) {
-            if (chr == 'b'){
-               verPos = verPos - 55;
-               if (verPos < minVerPos){
-                  verPos = minVerPos;
+               if (chr == 'r'){
+                  headPos = headPos + 55;
+                  if (headPos > maxPos){
+                     headPos = maxPos;
+                  }
                }
-            }
-            if (chr == 't'){
-               verPos = verPos + 55;
-               if (verPos > maxVerPos){
-                  verPos = maxVerPos;
+               var curData =  headPos - 1500;
+               curData = curData * mul;
+               document.getElementById('pos').innerHTML = curData.toFixed(0);
+               var dataToSnd = chr + "@" + headPos;
+               console.log(dataToSnd);
+               webiopi().callMacro("loadData", dataToSnd, processCompleted);
+            } 
+            function sendAngleDataVertical(chr) {
+               if (chr == 'b'){
+                  verPos = verPos - 55;
+                  if (verPos < minVerPos){
+                     verPos = minVerPos;
+                  }
                }
+               if (chr == 't'){
+                  verPos = verPos + 55;
+                  if (verPos > maxVerPos){
+                     verPos = maxVerPos;
+                  }
+               }
+               var curData =  verPos - 1500;
+               curData = curData * mul;
+               document.getElementById('vpos').innerHTML = curData.toFixed(0);
+               var dataToSnd = chr + "@" + verPos;
+               console.log(dataToSnd);
+               webiopi().callMacro("loadData", dataToSnd, processCompleted);
+            }                  
+            function processCompleted(macroName, channel, data){
+               console.log(data);
+               $('#table').css('display','block');
             }
-            var curData =  verPos - 1500;
-            curData = curData * mul;
-            document.getElementById('vpos').innerHTML = curData.toFixed(0);
-            var dataToSnd = chr + "@" + verPos;
-            console.log(dataToSnd);
-            webiopi().callMacro("loadData", dataToSnd, processCompleted);
-         }                  
-         function processCompleted(macroName, channel, data){
-            console.log(data);
-            $('#table').css('display','block');
-         }
-
-         function readFaces(){
-            console.log("readFaces");
-            webiopi().callMacro("numoffaces", "a", displayNoFaces);          
-         }
-
-         function displayNoFaces(macroName, channel, data){
-            console.log(data);
-            document.getElementById('faces').innerHTML = data;
-         }
-         webiopi().ready(init);
+         
+            function readFaces(){
+               console.log("readFaces");
+               webiopi().callMacro("numoffaces", "a", displayNoFaces);          
+            }
+         
+            function displayNoFaces(macroName, channel, data){
+               console.log(data);
+               document.getElementById('faces').innerHTML = data;
+            }
+             function reset(){
+                      $( "#leftShoulder" ).slider({
+                        orientation: "vertical",
+                        min: 500,
+                        max: 2500,
+                        value: 1500,
+                        slide: function( event, ui ) {
+                           var dataToSnd = "d@" + ui.value;
+                           console.log(dataToSnd);
+                           webiopi().callMacro("loadData", dataToSnd, processCompleted);                           
+                         }                     
+                      });   
+                      $( "#rightShoulder" ).slider({
+                        orientation: "vertical",
+                        min: 500,
+                        max: 2500,
+                        value: 1500,
+                        slide: function( event, ui ) {
+                           var dataToSnd = "e@" + ui.value;
+                           console.log(dataToSnd);
+                           webiopi().callMacro("loadData", dataToSnd, processCompleted);                           
+                         }
+                      });
+                      $( "#leftShlg" ).slider({
+                        orientation: "horizontal",
+                        min: 500,
+                        max: 2500,
+                        value: 1500,
+                        slide: function( event, ui ) {
+                           var dataToSnd = "f@" + ui.value;
+                           console.log(dataToSnd);
+                           webiopi().callMacro("loadData", dataToSnd, processCompleted);                           
+                         }
+                      }); 
+                      $( "#rightShld" ).slider({
+                        orientation: "horizontal",
+                        min: 500,
+                        max: 2500,
+                        value: 1500,
+                        slide: function( event, ui ) {
+                           var dataToSnd = "g@" + ui.value;
+                           console.log(dataToSnd);
+                           webiopi().callMacro("loadData", dataToSnd, processCompleted);                           
+                         }
+                      }); 
+                      $( "#righthand" ).slider({
+                        orientation: "horizontal",
+                        min: 500,
+                        max: 2500,
+                        value: 1500,
+                        slide: function( event, ui ) {
+                           var dataToSnd = "h@" + ui.value;
+                           console.log(dataToSnd);
+                           webiopi().callMacro("loadData", dataToSnd, processCompleted);                           
+                         }
+                      });  
+                      $( "#lefthand" ).slider({
+                        orientation: "horizontal",
+                        min: 500,
+                        max: 2500,
+                        value: 1500,
+                        slide: function( event, ui ) {
+                           var dataToSnd = "i@" + ui.value;
+                           console.log(dataToSnd);
+                           webiopi().callMacro("loadData", dataToSnd, processCompleted);                           
+                         }
+                      });  
+             }        
+             function toggle(dd){
+              if (dd == 1){
+                $("#robot").css('display','block');
+                $("#table").css('display','none');
+              }else if (dd == 0){
+                $("#robot").css('display','none');
+                $("#table").css('display','block');  
+                reset();             
+              }
+             } 
+            webiopi().ready(init);
       </script>
       <style type="text/css">
          button.small {
-            margin: 1px 1px 1px 1px;
-            width: 24px;
-            height: 24px;
-            font-weight: bold;
-            color: black;
+         margin: 1px 1px 1px 1px;
+         width: 24px;
+         height: 24px;
+         font-weight: bold;
+         color: black;
          }
          button {
-             background: none repeat scroll 0 0 #47B224;
-             color: #FFFFFF;
-             border-radius: 5px;
-             border: 5px;
-             font-size: 7pt;
-             height: 28px;
-             width: 60px;
+         background: none repeat scroll 0 0 #47B224;
+         color: #FFFFFF;
+         border-radius: 5px;
+         border: 5px;
+         font-size: 7pt;
+         height: 28px;
+         width: 60px;
          }
-
          .trPic .left {
-             background: url("arrow_left.png") no-repeat scroll center center rgba(0, 0, 0, 0);
-             float: left;
-             height: 235px;
-             left: 480px;
-             margin-top: -91px;
-             opacity: 0.2;
-             width: 100px;
-             z-index: 20;
+         background: url("arrow_left.png") no-repeat scroll center center rgba(0, 0, 0, 0);
+         float: left;
+         height: 235px;
+         left: 480px;
+         margin-top: -91px;
+         opacity: 0.2;
+         width: 100px;
+         z-index: 20;
          }
-
          .trPic .right {
-             background: url("arrow_right.png") no-repeat scroll center center rgba(0, 0, 0, 0);
-             float: right;
-             height: 235px;
-             left: 480px;
-             margin-top: -91px;
-             opacity: 0.2;
-             width: 100px;
-             z-index: 20;
+         background: url("arrow_right.png") no-repeat scroll center center rgba(0, 0, 0, 0);
+         float: right;
+         height: 235px;
+         left: 480px;
+         margin-top: -91px;
+         opacity: 0.2;
+         width: 100px;
+         z-index: 20;
          }
-
          .trPic .top {
-             background: url("arrow_top.png") no-repeat scroll center center rgba(0, 0, 0, 0);
-             float: left;
-             height: 90px;
-             left: 480px;
-             opacity: 0.2;
-             top: 0;
-             width: 100px;
-             z-index: 20;
+         background: url("arrow_top.png") no-repeat scroll center center rgba(0, 0, 0, 0);
+         float: left;
+         height: 90px;
+         left: 480px;
+         opacity: 0.2;
+         top: 0;
+         width: 100px;
+         z-index: 20;
          }
-
          .trPic .bottom {
-             background: url("arrow_bottom.png") no-repeat scroll center center rgba(0, 0, 0, 0);
-             float: right;
-             height: 90px;
-             left: 480px;
-             margin-top: -88px;
-             opacity: 0.2;
-             z-index: 20;
+         background: url("arrow_bottom.png") no-repeat scroll center center rgba(0, 0, 0, 0);
+         float: right;
+         height: 90px;
+         left: 480px;
+         margin-top: -88px;
+         opacity: 0.2;
+         z-index: 20;
          }
-
          .trPic .stop{ 
-            position:absolute; 
-            top:140px;
-            left:160px; 
-            width:320px; 
-            height:200px;  
-            opacity:0.1;
-            z-index: 20;
-            background: url(stop.png) no-repeat;
-            background-position: center center; 
-            border:0px solid #000000;
+         position:absolute; 
+         top:140px;
+         left:160px; 
+         width:320px; 
+         height:200px;  
+         opacity:0.1;
+         z-index: 20;
+         background: url(stop.png) no-repeat;
+         background-position: center center; 
+         border:0px solid #000000;
          } 
          .trPic{ 
-            position:absolute; 
-            top:0px;
-            width:320px; 
-            height:240px; 
-            background: url(http://10.0.1.17:8421/?action=stream) no-repeat; 
-            border:0px solid #000000; 
+         position:absolute; 
+         top:0px;
+         width:320px; 
+         height:240px; 
+         background: url(http://10.0.1.17:8421/?action=stream) no-repeat; 
+         border:0px solid #000000; 
          }  
          .keyClass{ 
-             border: 0 solid #000000;
-             height: 240px;
-             left: 0;
-             margin-top: 260px;
-             top: 204px;
-             width: 320px;
+         border: 0 solid #000000;
+         height: 240px;
+         left: 0;
+         margin-top: 260px;
+         top: 204px;
+         width: 320px;
          }                  
          .left:hover { 
-            opacity:0.7; 
+         opacity:0.7; 
          }
-
          .right:hover { 
-            opacity:0.7; 
+         opacity:0.7; 
          }
-
          .top:hover { 
-            opacity:0.7; 
+         opacity:0.7; 
          }
-
          .bottom:hover { 
-            opacity:0.7; 
+         opacity:0.7; 
          }         
-
          .stop:hover { 
-            opacity:0.7; 
+         opacity:0.7; 
          }
-        .danger {
-            background-color: #d9534f;
-            border-color: #d43f3a;
-            color: #fff;
-        }
-        .info {
-            background-color: #5bc0de;
-            border-color: #46b8da;
-            color: #fff;
-        }        
+         .danger {
+         background-color: #d9534f;
+         border-color: #d43f3a;
+         color: #fff;
+         }
+         .info {
+         background-color: #5bc0de;
+         border-color: #46b8da;
+         color: #fff;
+         } 
+         .robotPic {
+        height: 413px;
+        margin-top: 260px;
+        padding: 0 34px 32px;
+        position: absolute;
+        top: 0;
+        width: 246px;
+         }    
+         .component {
+         background: none repeat scroll 0 0 #5bc0de;
+         border: 1px solid #46b8da;
+         height: 50px;
+         margin: auto;
+         width: 100px;
+         border-radius: 20px;
+         }
+         .mid {
+         margin-top: 14px;
+         }
+         .ubody {
+         background: none repeat scroll 0 0 #5bc0de;
+         height: 102px;
+         margin: 4px auto auto;
+         width: 126px;
+         }
+         .upperSec{
+         border: 1px solid #46b8da;
+         height: 102px;
+         margin: 4px auto auto;
+         width: 226px;            
+         }
+         .lshoulder{
+         float: left;
+         margin-left: 6px;
+         }
+         .rshoulder{
+         float:right;
+         margin-right: 6px;
+         } 
+         .lshld{
+         margin-bottom: 50px;
+         margin-top: -3px;
+         }
+         .rshld{
+         margin-bottom: 50px;
+         margin-top: -3px;
+         }   
+         .lhand{
+         }
+         .rhand{
+         }
+         .rbutton {
+         background: none repeat scroll 0 0 #fff;
+         border: 1px none;
+         border-radius: 2px;
+         font-size: 13px;
+         margin: 2px;
+         padding: 5px 10px;
+         width: 71px;
+         }          
       </style>
    </head>
    <body>
-         <div id="content" style="height: 100%; width: 100%;">            
-            <div id="video" class="trPic">
-               <center>
-                  <div style="width:100%" class="top" onclick="sendAngleDataVertical('t')" > </div>
-                  <div style="width:100%">
-                     <div class="left" onclick="sendAngleData('l')" > </div>
-                     <div class="right" onclick="sendAngleData('r')" > </div>
-                  </div>
-                  <div class="bottom" style="width:100%" onclick="sendAngleDataVertical('b')"> </div>
-               </center>
-            <div style="clear:both"></div> 
-               <center>
-                  <div style="font-size: 13px; margin-top: 9px; color: green;">
-                    <span id="pos">0</span>,&nbsp;<span id="vpos">0</span>
-                  </div>                  
-               </center>             
-            </div>
+      <div id="content" style="height: 100%; width: 100%;">
+         <div id="video" class="trPic">
+            <center>
+               <div style="width:100%" class="top" onclick="sendAngleDataVertical('t')" > </div>
+               <div style="width:100%">
+                  <div class="left" onclick="sendAngleData('l')" > </div>
+                  <div class="right" onclick="sendAngleData('r')" > </div>
+               </div>
+               <div class="bottom" style="width:100%" onclick="sendAngleDataVertical('b')"> </div>
+            </center>
             <div style="clear:both"></div>
-            <div id="table" class="keyClass">
-               <table style="width: 50px; height: 50px;">
-                  <tbody>
-                     <tr>                        
-                        <td align="center"><button id="other" class="" type="button" onclick="sendData(23)">Get up</button></td>
-                        <td align="center"><button id="other"  class="" type="button" onclick="sendData(1)">stand</button></td>
-                        <td align="center"><button class="info" type="button" onclick="sendData(12)">Carpet walk</button></td>  
-                        <td style="center"><button id="other"  type="button" onclick="sendData(22)">Take rest</button></td>
-                        <td align="center"><button id="other"  class="" type="button" onclick="sendData(5)">Welcome</button></td>
-                     </tr>                    
-                     <tr>
-                        <td style="center"><button id="other"  type="button" onclick="sendData(2)">sit</button></td>
-                        <td align="center"><button id="other"  class="" type="button" onclick="sendData(15)">move left</button></td>
-                        <td align="center"><button class="info" type="button" onclick="sendData(21)">Forward</button></td>
-                        <td align="center"><button id="other"  class="" type="button" onclick="sendData(16)">move right</button></td>
-                        <td align="center"><button id="other"  class="" type="button" onclick="sendData(11)">Salute</button></td>
-                     </tr>
-                     <tr>
-                        <td style="center"><button id="other"  type="button" onclick="sendData(3)">fight</button></td>
-                        <td align="center"><button id="other"  class="info" type="button" onclick="sendData(13)">turn left</button></td>
-                        <td align="center"><button id="other"  class="danger" type="button" onclick="sendData(24)">Stop</button></td>
-                        <td align="center"><button id="other"  class="info" type="button" onclick="sendData(14)">turn right</button></td>                    
-                        <td align="center"><button id="other"  class="" type="button" onclick="sendData(18)">left kick</button></td>
-                     </tr>
-                     <tr>                        
-                        <td align="center"><button id="other"  class="" type="button" onclick="sendData(9)">from front</button></td>
-                        <td align="center"><button id="other"  class="" type="button" onclick="sendData(10)">from back</button></td>
-                        <td align="center"><button id="other"  class="" type="button" onclick="sendData(6)">Laydown</button></td>
-                        <td align="center"><button id="other"  class="" type="button" onclick="sendData(7)">push up</button></td>
-                        <td align="center"><button id="other"  class="" type="button" onclick="sendData(8)">1 pushup</button></td>
-                     </tr>
-                     <tr>
-                        <td align="center"><button id="other"  class="" type="button"></button></td>
-                        <td style="center"><button id="other"  type="button" onclick="sendData(4)">hand dance</button></td>
-                        <td align="center"><button id="other"  class="" type="button" onclick="sendData(17)">dance 1</button></td>
-                        <td align="center"><button id="other"  class="" type="button" onclick="sendData(19)">dance 2</button></td>
-                        <td align="center"><button id="other"  class="" type="button"></button></td>
-                     </tr>
-                  </tbody>
-               </table>               
-            </div>
+            <center>
+               <div style="font-size: 13px; margin-top: 9px; color: green;">
+                  <span id="pos">0</span>,&nbsp;<span id="vpos">0</span>
+               </div>
+            </center>
          </div>
+         <div style="clear:both"></div>
+         <div id="table" class="keyClass">
+            <table style="width: 50px; height: 50px;">
+               <tbody>
+                  <tr>
+                     <td align="center"><button id="other" class="" type="button" onclick="sendData(23)">Get up</button></td>
+                     <td align="center"><button id="other"  class="" type="button" onclick="sendData(1)">stand</button></td>
+                     <td align="center"><button class="info" type="button" onclick="sendData(12)">Carpet walk</button></td>
+                     <td style="center"><button id="other"  type="button" onclick="sendData(22)">Take rest</button></td>
+                     <td align="center"><button id="other"  class="" type="button" onclick="sendData(5)">Welcome</button></td>
+                  </tr>
+                  <tr>
+                     <td style="center"><button id="other"  type="button" onclick="sendData(2)">sit</button></td>
+                     <td align="center"><button id="other"  class="" type="button" onclick="sendData(15)">move left</button></td>
+                     <td align="center"><button class="info" type="button" onclick="sendData(21)">Forward</button></td>
+                     <td align="center"><button id="other"  class="" type="button" onclick="sendData(16)">move right</button></td>
+                     <td align="center"><button id="other"  class="" type="button" onclick="sendData(11)">Salute</button></td>
+                  </tr>
+                  <tr>
+                     <td style="center"><button id="other"  type="button" onclick="sendData(3)">fight</button></td>
+                     <td align="center"><button id="other"  class="info" type="button" onclick="sendData(13)">turn left</button></td>
+                     <td align="center"><button id="other"  class="danger" type="button" onclick="sendData(24)">Stop</button></td>
+                     <td align="center"><button id="other"  class="info" type="button" onclick="sendData(14)">turn right</button></td>
+                     <td align="center"><button id="other"  class="" type="button" onclick="sendData(18)">left kick</button></td>
+                  </tr>
+                  <tr>
+                     <td align="center"><button id="other"  class="" type="button" onclick="sendData(9)">from front</button></td>
+                     <td align="center"><button id="other"  class="" type="button" onclick="sendData(10)">from back</button></td>
+                     <td align="center"><button id="other"  class="" type="button" onclick="sendData(6)">Laydown</button></td>
+                     <td align="center"><button id="other"  class="" type="button" onclick="sendData(7)">push up</button></td>
+                     <td align="center"><button id="other"  class="" type="button" onclick="sendData(8)">1 pushup</button></td>
+                  </tr>
+                  <tr>
+                     <td align="center"><button id="other"  class="" type="button" style="background:#5bc0de" onclick="toggle(1)">Toggle</button></td>
+                     <td style="center"><button id="other"  type="button" onclick="sendData(4)">hand dance</button></td>
+                     <td align="center"><button id="other"  class="" type="button" onclick="sendData(17)">dance 1</button></td>
+                     <td align="center"><button id="other"  class="" type="button" onclick="sendData(19)">dance 2</button></td>
+                     <td align="center"><button id="other"  class="" type="button"></button></td>
+                  </tr>
+               </tbody>
+            </table>
+         </div>
+         <div id="robot" class="robotPic">
+            <table style="width: 241px;">
+               <tr>
+                  <td style="width: 30%;background: none repeat scroll 0 0 #5bc0de;border-radius: 12px;">
+                     <div id="leftShlg" class="lshld"></div>
+                     <div id="lefthand" class="lhand"></div>
+                  </td>
+                  <td style="width: 40%;background:none repeat scroll 0 0 #5bc0de;border-radius: 11px 11px 0 0;" colspan="2">
+                     <div id="leftShoulder" class="lshoulder"></div>
+                     <div id="rightShoulder" class="rshoulder"></div>
+                  </td>
+                  <td style="width: 30%;background: none repeat scroll 0 0 #5bc0de;border-radius: 12px;">
+                     <div id="rightShld" class="rshld"></div>
+                     <div id="righthand" class="rhand"></div>
+                  </td>
+               </tr>
+               <tr style="background: none repeat scroll 0 0 #5cb85c">
+                  <td colspan="4">
+                     <input type="button" value="Stand" onclick="Stand()" class="rbutton">
+                     <input type="button" value="Reset" onclick="reset()" class="rbutton">
+                     <input type="button" value="Sit down" onclick="sit()" class="rbutton">
+                  </td>
+               </tr>
+               <tr style="background: none repeat scroll 0 0 #5cb85c">
+                  <td colspan="4">
+                     <input type="button" value="Toggle" onclick="toggle(0)" class="rbutton">
+                  </td>
+               </tr>               
+            </table>
+         </div>
+      </div>
    </body>
 </html>
