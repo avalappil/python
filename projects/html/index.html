@@ -6,7 +6,6 @@
          content="height = device-height, width = 420, user-scalable = no">
       <title>Soul Robot</title>
       <script type="text/javascript" src="/webiopi.js"></script>
-      <link rel="stylesheet" href="jquery-ui.css">
       <script type="text/javascript">
          var headPos = 1500      
          var minPos = 550
@@ -20,9 +19,6 @@
          var walkingForward = false;
          
             function init() {
-              var script = document.createElement('script');
-              script.src = "jquery-ui.js";
-              document.getElementsByTagName('head')[0].appendChild(script);
               toggle(0);
             }
             function sendData(data) {
@@ -92,82 +88,142 @@
                console.log(data);
                document.getElementById('faces').innerHTML = data;
             }
-             function reset(){
-                      $( "#leftShoulder" ).slider({
-                        orientation: "vertical",
-                        min: 500,
-                        max: 2500,
-                        value: 1500,
-                        slide: function( event, ui ) {
-                           var dataToSnd = "d@" + ui.value;
-                           console.log(dataToSnd);
-                           webiopi().callMacro("loadData", dataToSnd, processCompleted);                           
-                         }                     
-                      });   
-                      $( "#rightShoulder" ).slider({
-                        orientation: "vertical",
-                        min: 500,
-                        max: 2500,
-                        value: 1500,
-                        slide: function( event, ui ) {
-                           var dataToSnd = "e@" + ui.value;
-                           console.log(dataToSnd);
-                           webiopi().callMacro("loadData", dataToSnd, processCompleted);                           
-                         }
-                      });
-                      $( "#leftShlg" ).slider({
-                        orientation: "horizontal",
-                        min: 500,
-                        max: 2500,
-                        value: 1500,
-                        slide: function( event, ui ) {
-                           var dataToSnd = "f@" + ui.value;
-                           console.log(dataToSnd);
-                           webiopi().callMacro("loadData", dataToSnd, processCompleted);                           
-                         }
-                      }); 
-                      $( "#rightShld" ).slider({
-                        orientation: "horizontal",
-                        min: 500,
-                        max: 2500,
-                        value: 1500,
-                        slide: function( event, ui ) {
-                           var dataToSnd = "g@" + ui.value;
-                           console.log(dataToSnd);
-                           webiopi().callMacro("loadData", dataToSnd, processCompleted);                           
-                         }
-                      }); 
-                      $( "#righthand" ).slider({
-                        orientation: "horizontal",
-                        min: 500,
-                        max: 2500,
-                        value: 1500,
-                        slide: function( event, ui ) {
-                           var dataToSnd = "h@" + ui.value;
-                           console.log(dataToSnd);
-                           webiopi().callMacro("loadData", dataToSnd, processCompleted);                           
-                         }
-                      });  
-                      $( "#lefthand" ).slider({
-                        orientation: "horizontal",
-                        min: 500,
-                        max: 2500,
-                        value: 1500,
-                        slide: function( event, ui ) {
-                           var dataToSnd = "i@" + ui.value;
-                           console.log(dataToSnd);
-                           webiopi().callMacro("loadData", dataToSnd, processCompleted);                           
-                         }
-                      });  
-             }        
+            
+            var rightbody = 1500;
+            function rightubody(){
+                rightbody = rightbody + 40;
+                if (rightbody > 2400){
+                  rightbody = 2400;
+                }
+                var dataToSnd = "e@" + rightbody;
+                console.log(dataToSnd);
+                webiopi().callMacro("loadData", dataToSnd, processCompleted);  
+            }
+
+            function rightbbody(){
+                rightbody = rightbody - 40;
+                if (rightbody < 600){
+                  rightbody = 600;
+                } 
+                var dataToSnd = "e@" + rightbody;
+                console.log(dataToSnd);
+                webiopi().callMacro("loadData", dataToSnd, processCompleted);  
+            }
+            
+            var leftbody = 1500;
+            function leftbbody(){
+                leftbody = leftbody + 40;
+                if (leftbody > 2400){
+                  leftbody = 2400;
+                }
+               var dataToSnd = "d@" + leftbody;
+               console.log(dataToSnd);
+               webiopi().callMacro("loadData", dataToSnd, processCompleted);                  
+            }
+
+            function leftubody(){
+                leftbody = leftbody - 40;
+                if (leftbody < 600){
+                  leftbody = 600;
+                } 
+               var dataToSnd = "d@" + leftbody;
+               console.log(dataToSnd);
+               webiopi().callMacro("loadData", dataToSnd, processCompleted);                  
+            }
+
+            var leftshoulder = 1500;
+            function leftushoulder(){
+                leftshoulder = leftshoulder + 40;
+                if (leftshoulder > 2400){
+                  leftshoulder = 2400;
+                }
+               var dataToSnd = "f@" + leftshoulder;
+               console.log(dataToSnd);
+               webiopi().callMacro("loadData", dataToSnd, processCompleted);                  
+            }
+
+            function leftbshoulder(){
+                leftshoulder = leftshoulder - 40;
+                if (leftshoulder < 600){
+                  leftshoulder = 600;
+                } 
+               var dataToSnd = "f@" + leftshoulder;
+               console.log(dataToSnd);
+               webiopi().callMacro("loadData", dataToSnd, processCompleted);                  
+            }
+
+
+            var rightshoulder = 1500;
+            function rightushoulder(){
+                rightshoulder = rightshoulder + 40;
+                if (rightshoulder > 2400){
+                  rightshoulder = 2400;
+                }
+                var dataToSnd = "g@" + rightshoulder;
+                console.log(dataToSnd);
+                webiopi().callMacro("loadData", dataToSnd, processCompleted);
+            }
+
+            function rightbshoulder(){
+                rightshoulder = rightshoulder - 40;
+                if (rightshoulder < 600){
+                  rightshoulder = 600;
+                } 
+                var dataToSnd = "g@" + rightshoulder;
+                console.log(dataToSnd);
+                webiopi().callMacro("loadData", dataToSnd, processCompleted);
+            }
+
+            var lefthand = 1500;
+            function leftbhand(){
+                lefthand = lefthand + 40;
+                if (lefthand > 2400){
+                  lefthand = 2400;
+                }
+                var dataToSnd = "i@" + lefthand;
+                console.log(dataToSnd);
+                webiopi().callMacro("loadData", dataToSnd, processCompleted);                
+            }
+
+            function leftuhand(){
+                lefthand = lefthand - 40;
+                if (lefthand < 600){
+                  lefthand = 600;
+                } 
+                var dataToSnd = "i@" + lefthand;
+                console.log(dataToSnd);
+                webiopi().callMacro("loadData", dataToSnd, processCompleted);                
+            }
+
+
+            var righthand = 1500;
+            function rightbhand(){
+                righthand = righthand + 40;
+                if (righthand > 2400){
+                  righthand = 2400;
+                }
+                var dataToSnd = "h@" + righthand;
+                console.log(dataToSnd);
+                webiopi().callMacro("loadData", dataToSnd, processCompleted);                 
+            }
+
+            function rightuhand(){
+                righthand = righthand - 40;
+                if (righthand < 600){
+                  righthand = 600;
+                } 
+                var dataToSnd = "h@" + righthand;
+                console.log(dataToSnd);
+                webiopi().callMacro("loadData", dataToSnd, processCompleted);  
+            }
+
              function toggle(dd){
               if (dd == 1){
                 $("#robot").css('display','block');
                 $("#table").css('display','none');
               }else if (dd == 0){
                 $("#robot").css('display','none');
-                $("#table").css('display','block');  
-                reset();             
+                $("#table").css('display','block');     
               }
              } 
             webiopi().ready(init);
@@ -332,7 +388,7 @@
          }
          .rhand{
          }
-         .rbutton {
+         .sbutton {
          background: none repeat scroll 0 0 #fff;
          border: 1px none;
          border-radius: 2px;
@@ -340,7 +396,39 @@
          margin: 2px;
          padding: 5px 10px;
          width: 71px;
-         }          
+         }    
+        .tbutton{
+        background:url("arrow_top.png");
+        background-repeat: no-repeat;
+        width:40px;
+        height:40px;
+        border: 0;
+        background-size:38px;
+        }    
+        .bbutton{
+        background:url("arrow_bottom.png");
+        background-repeat: no-repeat;
+        width:40px;
+        height:40px;
+        border: 0;
+        background-size:38px;
+        } 
+        .lbutton{
+        background:url("arrow_left.png");
+        background-repeat: no-repeat;
+        width:40px;
+        height:40px;
+        border: 0;
+        background-size:18px;
+        }    
+        .rbutton{
+        background:url("arrow_right.png");
+        background-repeat: no-repeat;
+        width:19px;
+        height:40px;
+        border: 0;
+        background-size:18px;
+        }        
       </style>
    </head>
    <body>
@@ -403,34 +491,98 @@
                </tbody>
             </table>
          </div>
-         <div id="robot" class="robotPic">
-            <table style="width: 241px;">
+         <div id="robot" class="robotPic" style="display:none">
+            <table style="width: 241px;border-collapse: collapse">
                <tr>
-                  <td style="width: 30%;background: none repeat scroll 0 0 #5bc0de;border-radius: 12px;">
-                     <div id="leftShlg" class="lshld"></div>
-                     <div id="lefthand" class="lhand"></div>
+                  <td style="width:12px;background: none repeat scroll 0 0 #5bc0de;" onclick="rightushoulder()">
+                    <input type="button" id="search" name="" alt="search" class="lbutton">
                   </td>
-                  <td style="width: 40%;background:none repeat scroll 0 0 #5bc0de;border-radius: 11px 11px 0 0;" colspan="2">
-                     <div id="leftShoulder" class="lshoulder"></div>
-                     <div id="rightShoulder" class="rshoulder"></div>
+                  <td style="width:12px;background: none repeat scroll 0 0 #5bc0de;" onclick="rightbshoulder()">
+                    <input type="button" id="search" name="" alt="search" class="rbutton">
                   </td>
-                  <td style="width: 30%;background: none repeat scroll 0 0 #5bc0de;border-radius: 12px;">
-                     <div id="rightShld" class="rshld"></div>
-                     <div id="righthand" class="rhand"></div>
+                  <td style="width:12px">
+                    &nbsp;
+                  </td>
+                  <td style="width:12px;background: none repeat scroll 0 0 #5bc0de;" onclick="rightubody()">
+                    <input type="button" id="search" name="" alt="search" class="tbutton">
+                  </td>
+                  <td style="width:12px;background: none repeat scroll 0 0 #5bc0de;" onclick="leftubody()">
+                    <input type="button" id="search" name="" alt="search" class="tbutton">
+                  </td>
+                  <td style="width:12px">
+                    &nbsp;
+                  </td>
+                  <td style="width:12px;background: none repeat scroll 0 0 #5bc0de;" onclick="leftushoulder()">
+                    <input type="button" id="search" name="" alt="search" class="lbutton">
+                  </td>
+                  <td style="width:12px;background: none repeat scroll 0 0 #5bc0de;" onclick="leftbshoulder()">
+                    <input type="button" id="search" name="" alt="search" class="rbutton">
+                  </td>
+               </tr>      
+               <tr>
+                  <td style="width:12px">
+                     &nbsp;
+                  </td>
+                  <td style="width:12px">
+                     &nbsp;
+                  </td>
+                  <td style="width:12px">
+                    &nbsp;
+                  </td>
+                  <td style="width:12px;background: none repeat scroll 0 0 #5bc0de;">
+                     &nbsp;
+                  </td>
+                  <td style="width:12px;background: none repeat scroll 0 0 #5bc0de;">
+                     &nbsp;
+                  </td>
+                  <td style="width:12px">
+                    &nbsp;
+                  </td>
+                  <td style="width:12px">
+                     &nbsp;
+                  </td>
+                  <td style="width:12px">
+                     &nbsp;
+                  </td>
+               </tr> 
+               <tr>
+                  <td style="width:12px;background: none repeat scroll 0 0 #5bc0de;" onclick="rightuhand()">
+                    <input type="button" id="search" name="" alt="search" class="lbutton">
+                  </td>
+                  <td style="width:12px;background: none repeat scroll 0 0 #5bc0de;" onclick="rightbhand()">
+                    <input type="button" id="search" name="" alt="search" class="rbutton">
+                  </td>
+                  <td style="width:12px">
+                    &nbsp;
+                  </td>
+                  <td style="width:12px;background: none repeat scroll 0 0 #5bc0de;" onclick="rightbbody()">
+                    <input type="button" id="search" name="" alt="search" class="bbutton">
+                  </td>
+                  <td style="width:12px;background: none repeat scroll 0 0 #5bc0de;" onclick="leftbbody()">
+                    <input type="button" id="search" name="" alt="search" class="bbutton">
+                  </td>
+                  <td style="width:12px">
+                    &nbsp;
+                  </td>
+                  <td style="width:12px;background: none repeat scroll 0 0 #5bc0de;" onclick="leftuhand()">
+                    <input type="button" id="search" name="" alt="search" class="lbutton">
+                  </td>
+                  <td style="width:12px;background: none repeat scroll 0 0 #5bc0de;" onclick="leftbhand()">
+                    <input type="button" id="search" name="" alt="search" class="rbutton">
+                  </td>
+               </tr>  
+               <tr style="background: none repeat scroll 0 0 #5cb85c">
+                  <td colspan="8">
+                     <input type="button" value="Stand" onclick="Stand()" class="sbutton">
+                     <input type="button" value="Reset" onclick="reset()" class="sbutton">
+                     <input type="button" value="Sit down" onclick="sit()" class="sbutton">
                   </td>
                </tr>
                <tr style="background: none repeat scroll 0 0 #5cb85c">
-                  <td colspan="4">
-                     <input type="button" value="Stand" onclick="Stand()" class="rbutton">
-                     <input type="button" value="Reset" onclick="reset()" class="rbutton">
-                     <input type="button" value="Sit down" onclick="sit()" class="rbutton">
+                  <td colspan="8">
+                     <input type="button" value="Toggle" onclick="toggle(0)" class="sbutton">
                   </td>
                </tr>
-               <tr style="background: none repeat scroll 0 0 #5cb85c">
-                  <td colspan="4">
-                     <input type="button" value="Toggle" onclick="toggle(0)" class="rbutton">
-                  </td>
-               </tr>               
             </table>
          </div>
       </div>

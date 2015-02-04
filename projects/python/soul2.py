@@ -96,12 +96,12 @@ def loadData(strData):
         serial.write(bytes(data + "\r", 'UTF-8')) 
     elif (strData != "" and strData.startswith('d')):
         headPos = strData.split('@')
-        data = "#8 P" + headPos[1] + " T1000"
+        data = "#24 P" + headPos[1] + " T1000"
         webiopi.debug(data)
         serial.write(bytes(data + "\r", 'UTF-8'))     
     elif (strData != "" and strData.startswith('e')):
         headPos = strData.split('@')
-        data = "#24 P" + headPos[1] + " T1000"
+        data = "#8 P" + headPos[1] + " T1000"
         webiopi.debug(data)
         serial.write(bytes(data + "\r", 'UTF-8'))     
     elif (strData != "" and strData.startswith('f')):
@@ -116,12 +116,12 @@ def loadData(strData):
         serial.write(bytes(data + "\r", 'UTF-8'))     
     elif (strData != "" and strData.startswith('h')):
         headPos = strData.split('@')
-        data = "#26 P" + headPos[1] + " T1000"
+        data = "#10 P" + headPos[1] + " T1000"
         webiopi.debug(data)
         serial.write(bytes(data + "\r", 'UTF-8'))     
     elif (strData != "" and strData.startswith('i')):
         headPos = strData.split('@')
-        data = "#10 P" + headPos[1] + " T1000"
+        data = "#26 P" + headPos[1] + " T1000"
         webiopi.debug(data)
         serial.write(bytes(data + "\r", 'UTF-8'))
     #elif (strData == "x"):
