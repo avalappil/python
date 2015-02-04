@@ -19,7 +19,7 @@
          var walkingForward = false;
          
             function init() {
-              toggle(0);
+              
             }
             function sendData(data) {
                $('#table').css('display','none');
@@ -78,6 +78,10 @@
                console.log(data);
                $('#table').css('display','block');
             }
+
+            function nothingtodo(macroName, channel, data){
+               console.log(data);
+            }
          
             function readFaces(){
                console.log("readFaces");
@@ -97,7 +101,7 @@
                 }
                 var dataToSnd = "e@" + rightbody;
                 console.log(dataToSnd);
-                webiopi().callMacro("loadData", dataToSnd, processCompleted);  
+                webiopi().callMacro("loadData", dataToSnd, nothingtodo);  
             }
 
             function rightbbody(){
@@ -107,7 +111,7 @@
                 } 
                 var dataToSnd = "e@" + rightbody;
                 console.log(dataToSnd);
-                webiopi().callMacro("loadData", dataToSnd, processCompleted);  
+                webiopi().callMacro("loadData", dataToSnd, nothingtodo);  
             }
             
             var leftbody = 1500;
@@ -118,7 +122,7 @@
                 }
                var dataToSnd = "d@" + leftbody;
                console.log(dataToSnd);
-               webiopi().callMacro("loadData", dataToSnd, processCompleted);                  
+               webiopi().callMacro("loadData", dataToSnd, nothingtodo);                  
             }
 
             function leftubody(){
@@ -128,7 +132,7 @@
                 } 
                var dataToSnd = "d@" + leftbody;
                console.log(dataToSnd);
-               webiopi().callMacro("loadData", dataToSnd, processCompleted);                  
+               webiopi().callMacro("loadData", dataToSnd, nothingtodo);                  
             }
 
             var leftshoulder = 1500;
@@ -139,7 +143,7 @@
                 }
                var dataToSnd = "f@" + leftshoulder;
                console.log(dataToSnd);
-               webiopi().callMacro("loadData", dataToSnd, processCompleted);                  
+               webiopi().callMacro("loadData", dataToSnd, nothingtodo);                  
             }
 
             function leftbshoulder(){
@@ -149,7 +153,7 @@
                 } 
                var dataToSnd = "f@" + leftshoulder;
                console.log(dataToSnd);
-               webiopi().callMacro("loadData", dataToSnd, processCompleted);                  
+               webiopi().callMacro("loadData", dataToSnd, nothingtodo);                  
             }
 
 
@@ -161,7 +165,7 @@
                 }
                 var dataToSnd = "g@" + rightshoulder;
                 console.log(dataToSnd);
-                webiopi().callMacro("loadData", dataToSnd, processCompleted);
+                webiopi().callMacro("loadData", dataToSnd, nothingtodo);
             }
 
             function rightbshoulder(){
@@ -171,7 +175,7 @@
                 } 
                 var dataToSnd = "g@" + rightshoulder;
                 console.log(dataToSnd);
-                webiopi().callMacro("loadData", dataToSnd, processCompleted);
+                webiopi().callMacro("loadData", dataToSnd, nothingtodo);
             }
 
             var lefthand = 1500;
@@ -182,7 +186,7 @@
                 }
                 var dataToSnd = "i@" + lefthand;
                 console.log(dataToSnd);
-                webiopi().callMacro("loadData", dataToSnd, processCompleted);                
+                webiopi().callMacro("loadData", dataToSnd, nothingtodo);                
             }
 
             function leftuhand(){
@@ -192,7 +196,7 @@
                 } 
                 var dataToSnd = "i@" + lefthand;
                 console.log(dataToSnd);
-                webiopi().callMacro("loadData", dataToSnd, processCompleted);                
+                webiopi().callMacro("loadData", dataToSnd, nothingtodo);                
             }
 
 
@@ -204,7 +208,7 @@
                 }
                 var dataToSnd = "h@" + righthand;
                 console.log(dataToSnd);
-                webiopi().callMacro("loadData", dataToSnd, processCompleted);                 
+                webiopi().callMacro("loadData", dataToSnd, nothingtodo);                 
             }
 
             function rightuhand(){
@@ -214,7 +218,7 @@
                 } 
                 var dataToSnd = "h@" + righthand;
                 console.log(dataToSnd);
-                webiopi().callMacro("loadData", dataToSnd, processCompleted);  
+                webiopi().callMacro("loadData", dataToSnd, nothingtodo);  
             }
 
              function toggle(dd){
@@ -227,6 +231,7 @@
               }
              } 
             webiopi().ready(init);
+            setTimeout(function(){ toggle(0); }, 2000);
       </script>
       <style type="text/css">
          button.small {
