@@ -23,15 +23,15 @@
             }
             function sendData(data) {
                $('#table').css('display','none');
-               if (data == 21 || data == 12){
-                 walkingForward = true;
-               }
-               if (walkingForward){
+              if (walkingForward){
                  walkingForward = false;
                  dataToSnd = 24;
                  webiopi().callMacro("loadData", dataToSnd - 1);  
                }else{
-                 webiopi().callMacro("loadData", dataToSnd - 1, processCompleted);
+                  if (data == 21 || data == 12){
+                    walkingForward = true;
+                  }
+                 webiopi().callMacro("loadData", data - 1, processCompleted);
                }
             }
             function sendAngleData(chr) {
