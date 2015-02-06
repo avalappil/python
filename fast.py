@@ -4,7 +4,7 @@ from SimpleCV import *
 display = SimpleCV.Display()
 cam = SimpleCV.Camera()
 
-cascade = LAUNCH_PATH + "/" + "Features/HaarCascades/face.xml"
+cascade = "/home/pi/Code/SimpleCV/SimpleCV/Features/HaarCascades/face.xml"
 haarcascade = SimpleCV.HaarCascade(cascade) 
 
 while display.isNotDone():
@@ -13,5 +13,5 @@ while display.isNotDone():
 	if faces:
 		face = faces.sortArea()
 		face.draw(SimpleCV.Color.RED, 1)
-	
+	image.save("image.jpg")
 	image.show()

@@ -1,4 +1,3 @@
-
 #!/bin/bash
  
 if pgrep mjpg_streamer > /dev/null
