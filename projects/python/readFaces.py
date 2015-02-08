@@ -32,22 +32,9 @@ def get_colour_name(requested_colour):
         actual_name = None
     return actual_name, closest_name
 
-
-while True:	
-	#try:
-	urllib.urlretrieve(URL, imgName)
-	time.sleep(2)
-	print ("Image Saved")
-	img = Image(imgName)
-	(r, g, b) = img.getPixel(160, 120)
-	requested_colour = (r, g, b)
-	print(r, g, b)
-	actual_name, closest_name = get_colour_name(requested_colour)
-	print "Actual colour name:", actual_name, ", closest colour name:", closest_name
-
-	image = cv2.imread(imgName)	
+def getNumberOfFaces():
+	image = cv2.imread(imgName)
 	gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
-
 	# Detect faces in the image
 	faces = faceCascade.detectMultiScale(
     	gray,
@@ -56,6 +43,32 @@ while True:
     	minSize=(30, 30),
     	flags = cv2.cv.CV_HAAR_SCALE_IMAGE
 	)
-	print (len(faces))
-	#except:
-	#	pass
+	return len(faces)
+
+def detectColor():
+	ColorName = ""
+	#print ("Image Saved")
+	img = Image(imgName)
+	(r, g, b) = img.getPixel(160, 120)
+	requested_colour = (r, g, b)
+	#print(r, g, b)
+	actual_name, closest_name = get_colour_name(requested_colour)
+	ColorName = actual_name
+	if (actual_name == None):
+		ColorName = closest_name
+	print "Actual colour name:", actual_name, ", closest colour name:", closest_name, " Final color", ColorName
+	return ColorName
+
+
+while True:
+	try:
+		urllib.urlretrieve(URL, imgName)
+		time.sleep(2)
+		numoffaces = getNumberOfFaces()
+		colName = detectColor()
+		print "......................"
+		print (numoffaces)
+		print "......................"
+		print (colName)
+	except:
+		pass
