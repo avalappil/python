@@ -21,17 +21,20 @@
             function init() {
               
             }
-            function sendData(data) {
-               $('#table').css('display','none');
+            function sendData(data) {               
               if (walkingForward){
                  walkingForward = false;
                  dataToSnd = 24;
-                 webiopi().callMacro("loadData", dataToSnd - 1);  
+                 webiopi().callMacro("loadData", dataToSnd - 1,nothingtodo);  
                }else{
                   if (data == 21 || data == 12){
                     walkingForward = true;
+                    webiopi().callMacro("loadData", data - 1, nothingtodo);
+                  }else{
+                    $('#table').css('display','none');
+                    webiopi().callMacro("loadData", data - 1, processCompleted);
                   }
-                 webiopi().callMacro("loadData", data - 1, processCompleted);
+                 
                }
             }
             function sendAngleData(chr) {
