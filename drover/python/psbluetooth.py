@@ -14,7 +14,7 @@ pygame.init()
 j = pygame.joystick.Joystick(0)
 j.init()
 
-threshold = 0.60
+threshold = 0.30
 
 print 'Initialized Joystick : %s' % j.get_name()
 
@@ -46,11 +46,12 @@ try:
 
           # Check if one of the joysticks has moved
           if event.type == pygame.JOYAXISMOTION:
-            if event.axis == 1:
-              LeftTrack = event.value
+            ##### right joy stick - robot control
+            if event.axis == 2:
+              LeftTrack = float("{0:.2f}".format(event.value))
               UpdateMotors = 1
             elif event.axis == 3:
-              RightTrack = event.value
+              RightTrack = float("{0:.2f}".format(event.value))
               UpdateMotors = 1
 
             # Check if we need to update what the motors are doing
@@ -66,9 +67,9 @@ try:
                 print "Right: "
                 print RightTrack
               # Stopping
-              else:
-                  A0 = False
-                  A1 = False
+              #else:
+                  #A0 = False
+                  #A1 = False
 
               # And do the same for the right motor
               if (LeftTrack > threshold):
@@ -79,9 +80,9 @@ try:
                 print "Left: "
                 print LeftTrack
               # Otherwise stop
-              else:
-                  B0 = False
-                  B1 = False
+              #else:
+                  #B0 = False
+                  #B1 = False
 
               # Now we've worked out what is going on we can tell the
               # motors what they need to do
