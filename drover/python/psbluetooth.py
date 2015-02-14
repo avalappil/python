@@ -14,7 +14,7 @@ pygame.init()
 j = pygame.joystick.Joystick(0)
 j.init()
 
-threshold = 0.6
+threshold = 0.60
 
 print 'Initialized Joystick : %s' % j.get_name()
 
@@ -55,19 +55,16 @@ try:
 
             # Check if we need to update what the motors are doing
             if UpdateMotors:
-              print LeftTrack
-              print RightTrack
-
               # Check how to configure the left motor
 
               # Move forwards
               if (RightTrack > threshold):
-                  A0 = False
-                  A1 = True
+                print "Right: "
+                print RightTrack
               # Move backwards
               elif (RightTrack < -threshold):
-                  A0 = True
-                  A1 = False
+                print "Right: "
+                print RightTrack
               # Stopping
               else:
                   A0 = False
@@ -75,12 +72,12 @@ try:
 
               # And do the same for the right motor
               if (LeftTrack > threshold):
-                  B0 = False
-                  B1 = True
+                print "Left: "
+                print LeftTrack
               # Move backwards
               elif (LeftTrack < -threshold):
-                  B0 = True
-                  B1 = False
+                print "Left: "
+                print LeftTrack
               # Otherwise stop
               else:
                   B0 = False
