@@ -2,9 +2,10 @@
 
 import pygame
 import time
+import serial
 
 # initialize Serial driver
-serial = Serial("ttyAMA0", 9600)
+serialC = serial.Serial('/dev/ttyAMA0', 9600)
 
 # Initialise the pygame library
 pygame.init()
@@ -12,6 +13,8 @@ pygame.init()
 # Connect to the first JoyStick
 j = pygame.joystick.Joystick(0)
 j.init()
+
+threshold = 0.6
 
 print 'Initialized Joystick : %s' % j.get_name()
 
@@ -27,7 +30,7 @@ MotorBE = 19
 # Configure the motors to match the current settings.
 def setmotors(data):
   print data
-  serial.write(bytes("Leftforward\r\n", 'UTF-8'))
+  serialC.write(bytes("Leftforward\r\n", 'UTF-8'))
 
 # Try and run the main code, and in case of failure we can stop the motors
 try:
@@ -38,6 +41,8 @@ try:
         events = pygame.event.get()
         for event in events:
           UpdateMotors = 0
+          RightTrack = 0
+          LeftTrack = 0
 
           # Check if one of the joysticks has moved
           if event.type == pygame.JOYAXISMOTION:
@@ -50,6 +55,8 @@ try:
 
             # Check if we need to update what the motors are doing
             if UpdateMotors:
+              print LeftTrack
+              print RightTrack
 
               # Check how to configure the left motor
 
@@ -81,7 +88,7 @@ try:
 
               # Now we've worked out what is going on we can tell the
               # motors what they need to do
-              setmotors()
+              #setmotors()
 
 
 except KeyboardInterrupt:
