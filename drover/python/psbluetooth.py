@@ -34,13 +34,16 @@ try:
     # This is the main loop
     while True:
       #time.sleep(0.5)
-      print typeForArduino
-      print dataForArduino
+      #print typeForArduino
+      #print dataForArduino
       events = pygame.event.get()
       for event in events:
         UpdateMotors = 0
         forward = 0
         turn = 0
+        UpdateServo = 0
+        up = 0
+        rotate = 0
         # Check if one of the joysticks has moved
         if event.type == pygame.JOYAXISMOTION:
           ##### right joy stick - robot control
@@ -50,6 +53,29 @@ try:
           elif event.axis == 3:
             forward = float("{0:.2f}".format(event.value))
             UpdateMotors = 1
+          ##### lef joy stick - camera control
+          elif event.axis == 1:
+            up = float("{0:.2f}".format(event.value))
+            UpdateServo = 1
+          elif event.axis == 0:
+            rotate = float("{0:.2f}".format(event.value))
+            UpdateServo = 1
+
+          if UpdateServo:
+            if (up > threshold):
+              print "up: "
+              print up
+            elif (up < -threshold):
+              print "down: "
+              print up
+            elif (rotate > threshold):
+              print "left: "
+              print rotate
+            elif (rotate < -threshold):
+              print "right: "
+              print rotate
+
+
 
           # Check if we need to update what the motors are doing
           if UpdateMotors:
