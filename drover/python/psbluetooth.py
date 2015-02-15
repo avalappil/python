@@ -71,12 +71,7 @@ try:
                 print  forward
                 drive("f",str(forward))
               # Stopping
-              #else:
-                  #A0 = False
-                  #A1 = False
-
-              # And do the same for the right motor
-              if (turn > threshold):
+              elif (turn > threshold):
                 print "right: "
                 print turn
                 drive("t",str(turn))
@@ -87,8 +82,10 @@ try:
                 drive("t",str(turn))
               # Otherwise stop
               #else:
-                  #B0 = False
-                  #B1 = False              
+                #print "left: "
+                #print turn
+                #drive("f",str(0))
+              
 
 
 except KeyboardInterrupt:
