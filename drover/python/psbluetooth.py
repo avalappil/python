@@ -31,6 +31,7 @@ def drive(typ, data):
   serialC.write(typ)
   serialC.write(data)
   serialC.write("#")
+  serialC.flush()
 
 # Try and run the main code, and in case of failure we can stop the motors
 try:
@@ -54,6 +55,32 @@ try:
           elif event.axis == 3:
             forward = float("{0:.2f}".format(event.value))
             UpdateMotors = 1
+
+          ##### right joy stick - robot control
+          if event.axis == 0:
+            rotate = float("{0:.2f}".format(event.value))
+            UpdateServo = 1
+          elif event.axis == 1:
+            up = float("{0:.2f}".format(event.value))
+            UpdateServo = 1
+
+          if (UpdateServo):
+            if (up > threshold):
+              print "up: "
+              print up
+              drive("u",str(up))
+            elif (up < -threshold):
+              print "down: "
+              print  up
+              drive("u",str(up))
+            elif (rotate > threshold):
+              print "pan right: "
+              print rotate
+              drive("b",str(rotate))
+            elif (rotate < -threshold):
+              print "pan left: "
+              print rotate
+              drive("b",str(rotate))            
 
           # Check if we need to update what the motors are doing
           if UpdateMotors:
