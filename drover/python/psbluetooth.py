@@ -28,9 +28,11 @@ MotorB1 = 21
 MotorBE = 19
 
 # Configure the motors to match the current settings.
-def setmotors(data):
+def drive(typ, data):
   print data
-  serialC.write(bytes("Leftforward\r\n", 'UTF-8'))
+  serialC.write(typ)
+  serialC.write(data)
+  serialC.write("#")
 
 # Try and run the main code, and in case of failure we can stop the motors
 try:
@@ -41,17 +43,17 @@ try:
         events = pygame.event.get()
         for event in events:
           UpdateMotors = 0
-          RightTrack = 0
-          LeftTrack = 0
+          forward = 0
+          turn = 0
 
           # Check if one of the joysticks has moved
           if event.type == pygame.JOYAXISMOTION:
             ##### right joy stick - robot control
             if event.axis == 2:
-              LeftTrack = float("{0:.2f}".format(event.value))
+              turn = float("{0:.2f}".format(event.value))
               UpdateMotors = 1
             elif event.axis == 3:
-              RightTrack = float("{0:.2f}".format(event.value))
+              forward = float("{0:.2f}".format(event.value))
               UpdateMotors = 1
 
             # Check if we need to update what the motors are doing
@@ -59,34 +61,34 @@ try:
               # Check how to configure the left motor
 
               # Move forwards
-              if (RightTrack > threshold):
-                print "Right: "
-                print RightTrack
+              if (forward > threshold):
+                print "reverse: "
+                print forward
+                drive("f",str(forward))
               # Move backwards
-              elif (RightTrack < -threshold):
-                print "Right: "
-                print RightTrack
+              elif (forward < -threshold):
+                print "forward: "
+                print  forward
+                drive("f",str(forward))
               # Stopping
               #else:
                   #A0 = False
                   #A1 = False
 
               # And do the same for the right motor
-              if (LeftTrack > threshold):
-                print "Left: "
-                print LeftTrack
+              if (turn > threshold):
+                print "right: "
+                print turn
+                drive("t",str(turn))
               # Move backwards
-              elif (LeftTrack < -threshold):
-                print "Left: "
-                print LeftTrack
+              elif (turn < -threshold):
+                print "left: "
+                print turn
+                drive("t",str(turn))
               # Otherwise stop
               #else:
                   #B0 = False
-                  #B1 = False
-
-              # Now we've worked out what is going on we can tell the
-              # motors what they need to do
-              #setmotors()
+                  #B1 = False              
 
 
 except KeyboardInterrupt:
