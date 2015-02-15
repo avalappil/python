@@ -14,13 +14,13 @@ pygame.init()
 j = pygame.joystick.Joystick(0)
 j.init()
 
-threshold = 0.30
+threshold = 30
 
 print 'Initialized Joystick : %s' % j.get_name()
 
 
-typeForArduino = ""
-dataForArduino = ""
+leftMotor = 0
+rightMotor = 0
 
 typeForServo = ""
 dataForServo = ""
@@ -36,48 +36,62 @@ def drive(typ, data):
 try:
     # This is the main loop
     while True:
-      time.sleep(1)
+      #time.sleep(2)
       events = pygame.event.get()
       for event in events:
-        UpdateMotors = 1
-        forward = 0
+        direction = 0 #0 go front, else go back
         turn = 0
         UpdateServo = 0
         up = 0
         rotate = 0
         # Check if one of the joysticks has moved
         if event.type == pygame.JOYAXISMOTION:
+          ##### right joy stick - robot control
           forward = j.get_axis(3)
           turn = j.get_axis(2)
           forward = float("{0:.2f}".format(forward))
           turn = float("{0:.2f}".format(turn))
-          print forward, " <<>> ", turn
-          ##### right joy stick - robot control
-          #if event.axis == 2:
-          #  turn = float("{0:.2f}".format(event.value))
-          #  UpdateMotors = 1
-          #elif event.axis == 3:
-          #  forward = float("{0:.2f}".format(event.value))
-          #  UpdateMotors = 1
+          forward = forward * 100
+          turn = turn * 100
+          forward = int(round(float(forward)))
+          turn = int(round(float(turn)))
 
-          # Check if we need to update what the motors are doing
-          if UpdateMotors:
-            if (forward > threshold):
-              print "reverse: "
-              print forward
-              drive("f",str(forward))
-            elif (forward < -threshold):
-              print "forward: "
-              print  forward
-              drive("f",str(forward))
-            elif (turn > threshold):
-              print "right: "
-              print turn
-              drive("t",str(turn))
-            elif (turn < -threshold):
-              print "left: "
-              print turn
-              drive("t",str(turn))
+          if (forward < -threshold and turn < threshold and turn > -threshold):
+            #go straight
+            direction =0
+            leftMotor = (255 * (forward * -1))/100
+            rightMotor = leftMotor
+          elif (forward < -threshold and turn > threshold):
+            #go slight right
+            direction =0            
+            leftMotor = (255 * (forward * -1))/100
+            rightMotor = (255 * turn)/100
+          elif (forward < -threshold and turn < -threshold):
+            #go slight left
+            direction =0            
+            rightMotor = (255 * (forward * -1))/100
+            leftMotor = (255 * (turn * -1))/100
+          elif (forward > threshold and turn < threshold and turn > -threshold):
+            #go straight
+            direction =1            
+            leftMotor = (255 * forward)/100
+            rightMotor = leftMotor
+          elif (forward > threshold and turn > threshold):
+            #go slight right
+            direction =1            
+            leftMotor = (255 * forward)/100
+            rightMotor = (255 * turn)/100
+          elif (forward > threshold and turn < -threshold):
+            #go slight left
+            direction =1            
+            rightMotor = (255 * forward)/100
+            leftMotor = (255 * (turn * -1))/100            
+          else:
+            direction = 0
+            leftMotor = 0
+            rightMotor = 0
+
+          print leftMotor, " <<>> ", rightMotor, " <<>> ", direction
 
 except KeyboardInterrupt:
     # Turn off the motors
