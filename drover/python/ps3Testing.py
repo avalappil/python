@@ -54,51 +54,51 @@ try:
           turn = j.get_axis(2)
           forward = float("{0:.2f}".format(forward))
           turn = float("{0:.2f}".format(turn))
-          #forward = forward * 100
-          #turn = turn * 100
-          #forward = int(round(float(forward)))
-          #turn = int(round(float(turn)))
+          forward = forward * 100
+          turn = turn * 100
+          forward = int(round(float(forward)))
+          turn = int(round(float(turn)))
 
           if (forward < -threshold and turn < threshold and turn > -threshold):
             #go straight
             direction = 0
-            leftMotor = forward#(255 * (forward * -1))/100
+            leftMotor = (255 * (forward * -1))/100
             rightMotor = leftMotor
           elif (forward < -threshold and turn > threshold):
             #go slight right
             direction = 0
-            leftMotor = (forward * -1)#(255 * (forward * -1))/100
-            rightMotor = turn#(255 * turn)/100
+            leftMotor = (255 * (forward * -1))/100
+            rightMotor = (255 * turn)/100
           elif (forward < -threshold and turn < -threshold):
             #go slight left
             direction = 0
-            rightMotor = (forward * -1)#(255 * (forward * -1))/100
-            leftMotor = (turn * -1)#(255 * (turn * -1))/100
+            rightMotor = (255 * (forward * -1))/100
+            leftMotor = (255 * (turn * -1))/100
           elif (forward > threshold and turn < threshold and turn > -threshold):
             #go straight
             direction = 1
-            leftMotor = forward#(255 * forward)/100
+            leftMotor = (255 * forward)/100
             rightMotor = leftMotor
           elif (forward > threshold and turn > threshold):
             #go slight right
             direction = 1
-            leftMotor = forward#(255 * forward)/100
-            rightMotor = turn#(255 * turn)/100
+            leftMotor = (255 * forward)/100
+            rightMotor = (255 * turn)/100
           elif (forward > threshold and turn < -threshold):
             #go slight left
             direction = 1
-            rightMotor = forward#(255 * forward)/100
-            leftMotor = (turn * -1)#(255 * (turn * -1))/100
+            rightMotor = (255 * forward)/100
+            leftMotor = (255 * (turn * -1))/100
           elif (turn < -threshold and forward < threshold and forward > -threshold):
             #go slight left
             direction = 0
             leftMotor = 0
-            rightMotor = (turn * -1)#(255 * (turn * -1))/100 
+            rightMotor = (255 * (turn * -1))/100 
           elif (turn > threshold and forward < threshold and forward > -threshold):
             #go slight left
             direction = 0     
             rightMotor = 0
-            leftMotor = turn#(255 * turn)/100 
+            leftMotor = (255 * turn)/100 
           else:
             direction = 0
             leftMotor = 0
