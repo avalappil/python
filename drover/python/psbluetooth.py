@@ -18,14 +18,9 @@ threshold = 0.30
 
 print 'Initialized Joystick : %s' % j.get_name()
 
-# Setup the various GPIO values, using the BCM numbers for now
-left = 16
-MotorA1 = 18
-MotorAE = 22
 
-MotorB0 = 23
-MotorB1 = 21
-MotorBE = 19
+typeForArduino = "";
+dataForArduino = "";
 
 # Configure the motors to match the current settings.
 def drive(typ, data):
@@ -38,55 +33,56 @@ def drive(typ, data):
 try:
     # This is the main loop
     while True:
+      #time.sleep(0.5)
+      print typeForArduino
+      print dataForArduino
+      events = pygame.event.get()
+      for event in events:
+        UpdateMotors = 0
+        forward = 0
+        turn = 0
+        # Check if one of the joysticks has moved
+        if event.type == pygame.JOYAXISMOTION:
+          ##### right joy stick - robot control
+          if event.axis == 2:
+            turn = float("{0:.2f}".format(event.value))
+            UpdateMotors = 1
+          elif event.axis == 3:
+            forward = float("{0:.2f}".format(event.value))
+            UpdateMotors = 1
 
-        # Check for any queued events and then process each one
-        events = pygame.event.get()
-        for event in events:
-          UpdateMotors = 0
-          forward = 0
-          turn = 0
-
-          # Check if one of the joysticks has moved
-          if event.type == pygame.JOYAXISMOTION:
-            ##### right joy stick - robot control
-            if event.axis == 2:
-              turn = float("{0:.2f}".format(event.value))
-              UpdateMotors = 1
-            elif event.axis == 3:
-              forward = float("{0:.2f}".format(event.value))
-              UpdateMotors = 1
-
-            # Check if we need to update what the motors are doing
-            if UpdateMotors:
+          # Check if we need to update what the motors are doing
+          if UpdateMotors:
               # Check how to configure the left motor
 
               # Move forwards
-              if (forward > threshold):
-                print "reverse: "
-                print forward
-                drive("f",str(forward))
-              # Move backwards
-              elif (forward < -threshold):
-                print "forward: "
-                print  forward
-                drive("f",str(forward))
-              # Stopping
-              elif (turn > threshold):
-                print "right: "
-                print turn
-                drive("t",str(turn))
-              # Move backwards
-              elif (turn < -threshold):
-                print "left: "
-                print turn
-                drive("t",str(turn))
-              # Otherwise stop
-              #else:
-                #print "left: "
-                #print turn
-                #drive("f",str(0))
-              
-
+            if (forward > threshold):
+              print "reverse: "
+              print forward
+              typeForArduino = "f"
+              dataForArduino = str(forward)
+              drive("f",str(forward))
+            elif (forward < -threshold):
+              print "forward: "
+              print  forward
+              typeForArduino = "f"
+              dataForArduino = str(forward)
+              drive("f",str(forward))
+            elif (turn > threshold):
+              print "right: "
+              print turn
+              typeForArduino = "t"
+              dataForArduino = str(turn)
+              drive("t",str(turn))
+            elif (turn < -threshold):
+              print "left: "
+              print turn
+              typeForArduino = "t"
+              dataForArduino = str(turn)
+              drive("t",str(turn))
+            #else:
+              #typeForArduino = "t"
+              #dataForArduino = "0"
 
 except KeyboardInterrupt:
     # Turn off the motors
