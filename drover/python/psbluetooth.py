@@ -53,9 +53,6 @@ try:
 
           # Check if we need to update what the motors are doing
           if UpdateMotors:
-              # Check how to configure the left motor
-
-              # Move forwards
             if (forward > threshold):
               print "reverse: "
               print forward
