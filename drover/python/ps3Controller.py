@@ -30,7 +30,6 @@ serialC = serial.Serial('/dev/ttyAMA0', 9600)
 
 # Initialise the pygame library
 pygame.init()
-
 # Connect to the first JoyStick
 j = pygame.joystick.Joystick(0)
 j.init()
@@ -90,6 +89,24 @@ def right():
   (GPIO.output(PWMA, GPIO.HIGH))
   (GPIO.output(PWMB, GPIO.HIGH))
 
+def leftonly():
+  (GPIO.output(AIN1, GPIO.LOW))
+  (GPIO.output(AIN2, GPIO.LOW))
+  (GPIO.output(BIN1, GPIO.HIGH))
+  (GPIO.output(BIN2, GPIO.LOW))
+  (GPIO.output(STBY, GPIO.HIGH))
+  (GPIO.output(PWMA, GPIO.LOW))
+  (GPIO.output(PWMB, GPIO.HIGH))
+
+def rightonly():
+  (GPIO.output(AIN1, GPIO.HIGH))
+  (GPIO.output(AIN2, GPIO.LOW))
+  (GPIO.output(BIN1, GPIO.LOW))
+  (GPIO.output(BIN2, GPIO.LOW))
+  (GPIO.output(STBY, GPIO.HIGH))
+  (GPIO.output(PWMA, GPIO.HIGH))
+  (GPIO.output(PWMB, GPIO.LOW))
+
 def off():
   (GPIO.output(AIN1, GPIO.LOW))
   (GPIO.output(AIN2, GPIO.LOW))
@@ -104,12 +121,13 @@ def off():
 try:
     # This is the main loop
     while True:
-      #time.sleep(0.1)
       events = pygame.event.get()
       for event in events:
         UpdateMotors = 1
         straight = 0
         turn = 0
+        L2 = 0
+        R2 = 0
         # Check if one of the joysticks has moved
         if event.type == pygame.JOYAXISMOTION:
           ##### right joy stick - robot control
@@ -117,25 +135,33 @@ try:
           turn = j.get_axis(2) 
           straight = float("{0:.2f}".format(straight))
           turn = float("{0:.2f}".format(turn))
-          print straight
-          print turn   
+          #print straight
+          #print turn 
 
-          # Check if we need to update what the motors are doing
-          if UpdateMotors:
-            if (straight > threshold):
-              print "reverse: "
-              reverse()
-            elif (straight < -threshold):
-              print "straight: "
-              forward()
-            elif (turn > threshold):
-              print "right: "
-              left()
-            elif (turn < -threshold):
-              print "left: "
-              right()
-            else:
-              off()
+          L2 = j.get_button(8)
+          R2 = j.get_button(9)
+
+          print L2
+          print R2 
+
+          if (L2 == 1):
+            leftonly()
+          elif (R2 == 1):
+            rightonly()
+          elif (straight > threshold):
+            print "reverse: "
+            reverse()
+          elif (straight < -threshold):
+            print "straight: "
+            forward()
+          elif (turn > threshold):
+            print "right: "
+            left()
+          elif (turn < -threshold):
+            print "left: "
+            right()
+          else:
+            off()
 
 except KeyboardInterrupt:
     # Turn off the motors
