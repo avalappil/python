@@ -2,11 +2,15 @@
 
 import pygame
 import time
+import os
 import serial
 import RPi.GPIO as GPIO
 
 GPIO.setmode(GPIO.BCM)
 
+# cam position
+tilt = 1500
+pan = 1500
 # Set which GPIO pins the drive outputs are connected
 PWMA = 17
 AIN1 = 27
@@ -119,6 +123,11 @@ def off():
 
 # Try and run the main code, and in case of failure we can stop the motors
 try:
+    #reset servo
+    serialC.write("#23P1500T1000\r\n")
+    serialC.flush()
+    serialC.write("#24P1500T1000\r\n")
+    serialC.flush()
     # This is the main loop
     while True:
       events = pygame.event.get()
@@ -135,8 +144,51 @@ try:
           turn = j.get_axis(2) 
           straight = float("{0:.2f}".format(straight))
           turn = float("{0:.2f}".format(turn))
-          #print straight
-          #print turn 
+          print straight
+          print turn 
+
+          ##### left joy stick - cam control
+          rotate = j.get_axis(0)
+          up = j.get_axis(1) 
+          rotate = float("{0:.2f}".format(rotate))
+          up = float("{0:.2f}".format(up))
+          print rotate
+          print up
+
+          if (up > threshold):
+            print "up: "
+            print up
+            tilt = tilt - 10
+            print tilt
+            if (tilt >= 1240):
+              data = "#24P" + str(tilt) + "T100"
+              serialC.write(data)
+              serialC.write("\r\n")
+              serialC.flush()
+              time.sleep(0.1)
+            else:
+              tilt = 1240
+          elif (up < -threshold):
+            print "down: "
+            print  up
+            tilt = tilt + 10
+            print tilt
+            if (tilt < 2240):
+              data = "#24P" + str(tilt) + "T100"
+              serialC.write(data)
+              serialC.write("\r\n")
+              serialC.flush()
+              time.sleep(0.1)
+            else:
+              tilt = 2240;
+          elif (rotate > threshold):
+            print "pan right: "
+            print rotate
+            drive("b",str(rotate))
+          elif (rotate < -threshold):
+            print "pan left: "
+            print rotate
+            drive("b",str(rotate))
 
           L2 = j.get_button(8)
           R2 = j.get_button(9)
