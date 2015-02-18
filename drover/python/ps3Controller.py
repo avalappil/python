@@ -8,7 +8,7 @@ import RPi.GPIO as GPIO
 
 GPIO.setmode(GPIO.BCM)
 
-servoMap = {1.00:"400",0.90:"500",0.80:"600",0.70:"700",0.60:"900",0.50:"1000",0.40:"1100",0.30:"1200",0.20:"1300",0.10:"1400",-0.10:"1600",-0.20:"1700",-0.30:"1800",-0.40:"1900",-0.50:"2000",-0.60:"2100",-0.70:"2200",-0.80:"2300",-0.90:"2400",-1.00:"2500"}
+servoMap = {1.00:"400",0.90:"500",0.80:"600",0.70:"700",0.60:"900",0.50:"1000",0.40:"1100",0.30:"1200",0.20:"1300",0.10:"1400",0.0:"1500",-0.10:"1600",-0.20:"1700",-0.30:"1800",-0.40:"1900",-0.50:"2000",-0.60:"2100",-0.70:"2200",-0.80:"2300",-0.90:"2400",-1.00:"2500"}
 
 # cam position
 tilt = 1500
@@ -152,22 +152,36 @@ try:
           straight = float("{0:.2f}".format(straight))
           turn = float("{0:.2f}".format(turn))
 
-          #if event.axis == 2:
-          #  turn = float("{0:.2f}".format(event.value))
-          #  UpdateMotors = 1
-          #elif event.axis == 3:
-          #  straight = float("{0:.2f}".format(event.value))
-          #  UpdateMotors = 1
 
           ##### right joy stick - robot control
-          if event.axis == 0:
-            rotate = float("{0:.2f}".format(event.value))
-            UpdateServo = 1
-          elif event.axis == 1:
-            up = float("{0:.2f}".format(event.value))
-            UpdateServo = 1
+          rotate = j.get_axis(0)
+          rotate = float("{0:.2f}".format(rotate))
+          up = j.get_axis(1)
+          up = float("{0:.2f}".format(up))
 
-          print straight, turn 
+          up = int(up * 10)
+          up = float("{0:.2f}".format(up))
+          up = up /10
+          if up in servoMap:
+            newValue = servoMap[up]
+            if (tilt != newValue):
+              print newValue
+              serialC.write("#24P" + str(newValue) + "T500\r\n")
+              serialC.flush()
+              tilt = newValue
+              time.sleep(0.5)
+
+          rotate = int(rotate * 10)
+          rotate = float("{0:.2f}".format(rotate))
+          rotate = rotate /10
+          if rotate in servoMap:
+            newPValue = servoMap[rotate]
+            if (pan != newPValue):
+              print newPValue
+              serialC.write("#23P" + str(newPValue) + "T500\r\n")
+              serialC.flush()
+              pan = newPValue
+              time.sleep(0.5)              
 
           #print rotate
           #print up
