@@ -132,8 +132,8 @@ try:
     serialC.flush()
     # This is the main loop
     while True:
-      off()
-      time.sleep(1)
+      #off()
+      #time.sleep(1)
       events = pygame.event.get()
       for event in events:
         UpdateMotors = 1
@@ -172,21 +172,20 @@ try:
           #print rotate
           #print up
 
-          #L2 = j.get_button(8)
-          #R2 = j.get_button(9)
+          L2 = j.get_button(8)
+          R2 = j.get_button(9)
 
           #print L2
           #print R2 
 
-          #if (L2 == 1):
-          #  leftonly()
-          #  time.sleep(1)
-          #elif (R2 == 1):
-          #  rightonly()
-          #el
+
 
           if (UpdateMotors):
-            if (straight > threshold):
+            if (L2 == 1):
+              leftonly()
+            elif (R2 == 1):
+              rightonly()            
+            elif (straight > threshold):
               print "reverse: "
               reverse()
               #time.sleep(0.1)
