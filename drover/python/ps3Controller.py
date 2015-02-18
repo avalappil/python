@@ -8,6 +8,8 @@ import RPi.GPIO as GPIO
 
 GPIO.setmode(GPIO.BCM)
 
+servoMap = {1.00:"400",0.90:"500",0.80:"600",0.70:"700",0.60:"900",0.50:"1000",0.40:"1100",0.30:"1200",0.20:"1300",0.10:"1400",-0.10:"1600",-0.20:"1700",-0.30:"1800",-0.40:"1900",-0.50:"2000",-0.60:"2100",-0.70:"2200",-0.80:"2300",-0.90:"2400",-1.00:"2500"}
+
 # cam position
 tilt = 1500
 pan = 1500
@@ -130,6 +132,8 @@ try:
     serialC.flush()
     # This is the main loop
     while True:
+      off()
+      time.sleep(1)
       events = pygame.event.get()
       for event in events:
         UpdateMotors = 1
@@ -137,6 +141,9 @@ try:
         turn = 0
         L2 = 0
         R2 = 0
+        rotate = 0
+        up = 0
+        UpdateServo = 0
         # Check if one of the joysticks has moved
         if event.type == pygame.JOYAXISMOTION:
           ##### right joy stick - robot control
@@ -144,74 +151,58 @@ try:
           turn = j.get_axis(2) 
           straight = float("{0:.2f}".format(straight))
           turn = float("{0:.2f}".format(turn))
-          print straight
-          print turn 
 
-          ##### left joy stick - cam control
-          rotate = j.get_axis(0)
-          up = j.get_axis(1) 
-          rotate = float("{0:.2f}".format(rotate))
-          up = float("{0:.2f}".format(up))
-          print rotate
-          print up
+          #if event.axis == 2:
+          #  turn = float("{0:.2f}".format(event.value))
+          #  UpdateMotors = 1
+          #elif event.axis == 3:
+          #  straight = float("{0:.2f}".format(event.value))
+          #  UpdateMotors = 1
 
-          if (up > threshold):
-            print "up: "
-            print up
-            tilt = tilt - 10
-            print tilt
-            if (tilt >= 1240):
-              data = "#24P" + str(tilt) + "T100"
-              serialC.write(data)
-              serialC.write("\r\n")
-              serialC.flush()
-              time.sleep(0.1)
+          ##### right joy stick - robot control
+          if event.axis == 0:
+            rotate = float("{0:.2f}".format(event.value))
+            UpdateServo = 1
+          elif event.axis == 1:
+            up = float("{0:.2f}".format(event.value))
+            UpdateServo = 1
+
+          print straight, turn 
+
+          #print rotate
+          #print up
+
+          #L2 = j.get_button(8)
+          #R2 = j.get_button(9)
+
+          #print L2
+          #print R2 
+
+          #if (L2 == 1):
+          #  leftonly()
+          #  time.sleep(1)
+          #elif (R2 == 1):
+          #  rightonly()
+          #el
+
+          if (UpdateMotors):
+            if (straight > threshold):
+              print "reverse: "
+              reverse()
+              #time.sleep(0.1)
+            elif (straight < -threshold):
+              print "straight: "
+              forward()
+              #time.sleep(0.1)
+            elif (turn > threshold):
+              print "right: "
+              left()
+              #time.sleep(0.1)
+            elif (turn < -threshold):
+              print "left: "
+              right()
             else:
-              tilt = 1240
-          elif (up < -threshold):
-            print "down: "
-            print  up
-            tilt = tilt + 10
-            print tilt
-            if (tilt < 2240):
-              data = "#24P" + str(tilt) + "T100"
-              serialC.write(data)
-              serialC.write("\r\n")
-              serialC.flush()
-              time.sleep(0.1)
-            else:
-              tilt = 2240;
-          elif (rotate > threshold):
-            print "pan right: "
-            print rotate
-            drive("b",str(rotate))
-          elif (rotate < -threshold):
-            print "pan left: "
-            print rotate
-            drive("b",str(rotate))
-
-          L2 = j.get_button(8)
-          R2 = j.get_button(9)
-
-          print L2
-          print R2 
-
-          if (L2 == 1):
-            leftonly()
-          elif (R2 == 1):
-            rightonly()
-          elif (straight > threshold):
-            print "reverse: "
-            reverse()
-          elif (straight < -threshold):
-            print "straight: "
-            forward()
-          elif (turn > threshold):
-            print "right: "
-            left()
-          elif (turn < -threshold):
-            print "left: "
-            right()
+              off()
           else:
             off()
 
