@@ -198,14 +198,14 @@ try:
           l = j.get_button(7)
           r = j.get_button(5)
 
-          if (u == 1):
+          if (d == 1):
             vertical = vertical - 10;
             if (vertical < 600):
               vertical = 600
             serialC.write("#24P" + str(vertical) + "T500\r\n")
             serialC.flush()
             time.sleep(0.5)
-          if (d == 1):
+          if (u == 1):
             vertical = vertical + 10;
             if (vertical > 2400):
               vertical = 2400
@@ -213,14 +213,14 @@ try:
             serialC.flush()
             time.sleep(0.5)     
 
-          if (l == 1):
+          if (r == 1):
             horizontal = horizontal - 10;
             if (horizontal < 600):
               horizontal = 600
             serialC.write("#23P" + str(horizontal) + "T500\r\n")
             serialC.flush()
             time.sleep(0.5)
-          if (r == 1):
+          if (l == 1):
             horizontal = horizontal + 10;
             if (horizontal > 2400):
               horizontal = 2400
