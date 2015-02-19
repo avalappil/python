@@ -10,6 +10,9 @@ GPIO.setmode(GPIO.BCM)
 
 servoMap = {1.00:"400",0.90:"500",0.80:"600",0.70:"700",0.60:"900",0.50:"1000",0.40:"1100",0.30:"1200",0.20:"1300",0.10:"1400",0.0:"1500",-0.10:"1600",-0.20:"1700",-0.30:"1800",-0.40:"1900",-0.50:"2000",-0.60:"2100",-0.70:"2200",-0.80:"2300",-0.90:"2400",-1.00:"2500"}
 
+#cam position from button
+vertical = 1500
+horizontal = 1500
 # cam position
 tilt = 1500
 pan = 1500
@@ -189,6 +192,41 @@ try:
 
           L2 = j.get_button(8)
           R2 = j.get_button(9)
+
+          u = j.get_button(4)
+          d = j.get_button(6)
+          l = j.get_button(7)
+          r = j.get_button(5)
+
+          if (u == 1):
+            vertical = vertical - 10;
+            if (vertical < 600):
+              vertical = 600
+            serialC.write("#24P" + str(vertical) + "T500\r\n")
+            serialC.flush()
+            time.sleep(0.5)
+          if (d == 1):
+            vertical = vertical + 10;
+            if (vertical > 2400):
+              vertical = 2400
+            serialC.write("#24P" + str(vertical) + "T500\r\n")
+            serialC.flush()
+            time.sleep(0.5)     
+
+          if (l == 1):
+            horizontal = horizontal - 10;
+            if (horizontal < 600):
+              horizontal = 600
+            serialC.write("#23P" + str(horizontal) + "T500\r\n")
+            serialC.flush()
+            time.sleep(0.5)
+          if (r == 1):
+            horizontal = horizontal + 10;
+            if (horizontal > 2400):
+              horizontal = 2400
+            serialC.write("#23P" + str(horizontal) + "T500\r\n")
+            serialC.flush()
+            time.sleep(0.5) 
 
           #print L2
           #print R2 
