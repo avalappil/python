@@ -135,6 +135,7 @@ try:
       #off()
       #time.sleep(1)
       events = pygame.event.get()
+
       for event in events:
         UpdateMotors = 1
         straight = 0
@@ -218,6 +219,7 @@ try:
               off()
           else:
             off()
+        break
 
 except KeyboardInterrupt:
     # Turn off the motors
