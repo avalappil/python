@@ -1,11 +1,4 @@
-servoMap = {1.00:"400",0.90:"500",0.80:"600",0.70:"700",0.60:"900",0.50:"1000",0.40:"1100",0.30:"1200",0.20:"1300",0.10:"1400",0.00:"1500",-0.10:"1600",-0.20:"1700",-0.30:"1800",-0.40:"1900",-0.50:"2000",-0.60:"2100",-0.70:"2200",-0.80:"2300",-0.90:"2400",-1.00:"2500"}
-
-pos = 0.72
-print pos
-pos = int(pos * 10)
-print pos
-pos = float("{0:.2f}".format(pos))
-pos = pos /10
-print pos
-if pos in servoMap:
-	print servoMap[pos]
+import pygame
+pygame.init()
+pygame.joystick.Joystick(0)
+print "Connected"
