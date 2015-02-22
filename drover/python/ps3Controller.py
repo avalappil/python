@@ -5,6 +5,7 @@ import time
 import os
 import serial
 import RPi.GPIO as GPIO
+import subprocess
 
 GPIO.setmode(GPIO.BCM)
 
@@ -214,6 +215,12 @@ try:
           d = j.get_button(6)
           l = j.get_button(7)
           r = j.get_button(5)
+
+          ps = j.get_button(16)
+
+          if (ps == 1):
+            subprocess.call('sudo shutdown -h now', shell=True)
+
 
           if (d == 1):
             vertical = vertical - 10;
