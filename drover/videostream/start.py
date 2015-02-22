@@ -2,7 +2,7 @@ import subprocess
 import webiopi
 
 def setup():
-	subprocess.call('../videostream/start_stream.sh', shell=True)
+	subprocess.call('/home/pi/drover/videostream/start_stream.sh', shell=True)
 
 def destroy():
-	subprocess.call('../videostream/stop_stream.sh', shell=True)
+	subprocess.call('/home/pi/drover/videostream/stop_stream.sh', shell=True)
