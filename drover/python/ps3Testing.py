@@ -24,6 +24,7 @@ PWMB = 23
 BIN1 = 24
 BIN2 = 25
 STBY = 22
+STARTPROGRAM = 26
 ##
 ### Set all the drive pins as output pins
 GPIO.setup(AIN1, GPIO.OUT)
@@ -33,24 +34,29 @@ GPIO.setup(BIN2, GPIO.OUT)
 GPIO.setup(STBY, GPIO.OUT)
 GPIO.setup(PWMA, GPIO.OUT)
 GPIO.setup(PWMB, GPIO.OUT)
+GPIO.setup(STARTPROGRAM, GPIO.IN, pull_up_down=GPIO.PUD_UP)
 
 # initialize Serial driver
 serialC = serial.Serial('/dev/ttyAMA0', 9600)
 
-# Initialise the pygame library
-pygame.init()
+waitForPS3 = 1
 
-waitForPS3 = True
-
-while waitForPS3:
-	time.sleep(2)
-	try:
-		pygame.joystick.Joystick(0)
-		waitForPS3 = False
-	except:
-		print "waiting for controller"
+while (waitForPS3 == 1):
+  time.sleep(2)
+  try:
+    print "starting"
+    input_state = GPIO.input(STARTPROGRAM)
+    if (input_state == False):
+      print "button Pressed"
+      print "found"
+      print "exit"
+      waitForPS3 = 0
+  except:
+    print "waiting for controller"
 print "Connected"
 
+# Initialise the pygame library
+pygame.init()
 j = pygame.joystick.Joystick(0)
 j.init()
 
