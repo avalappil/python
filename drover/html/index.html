@@ -6,6 +6,12 @@
          content="height = device-height, width = 420, user-scalable = no">
       <title>Soul Robot</title>
       <script type="text/javascript" src="/webiopi.js"></script>
+      <script>
+      webiopi().ready(function() {
+        var videoUrl = "http://" + window.location.hostname + ":8421?action=stream";
+        document.getElementsByClassName("trPic")[0].style.background = "url(" + videoUrl + ") no-repeat" 
+        });
+      </script>
       <style type="text/css">
          button.small {
          margin: 1px 1px 1px 1px;
@@ -79,7 +85,7 @@
          top:0px;
          width:640px; 
          height:320px; 
-         background: url('http://10.0.1.17:8421/?action=stream') no-repeat; 
+         background: url(window.location.hostname + ':8421?action=stream') no-repeat; 
          border:0px solid #000000; 
          }  
          .keyClass{ 

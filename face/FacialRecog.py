@@ -4,7 +4,7 @@ import os, sys
 
 # This file shows you how to train Fisher Face Recognition
 # Enter the names of the faces and the output file.
-cascade = LAUNCH_PATH + "/" + "Features/HaarCascades/face.xml"
+cascade = "/home/bananapi/Code/SimpleCV/SimpleCV/Features/HaarCascades/face.xml"
 draw_color = Color.YELLOW
 cam = Camera(0) # camera
 #names = ['Ajith.jpg','Geetha.jpg'] # names of people to recognize
