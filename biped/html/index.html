@@ -1,0 +1,325 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <meta name="viewport"
+         content="height = device-height, width = 420, user-scalable = no">
+      <title>Soul Robot</title>
+      
+      <script>
+
+        document.onkeydown = function(e) {
+            e = e || window.event;
+            console.log(e.keyCode);
+            switch(e.which || e.keyCode) {
+
+                case 37: // left
+                console.log("Left");
+                break;
+
+                case 38: // up
+                console.log("up");
+                break;
+
+                case 39: // right
+                console.log("right");
+                break;
+
+                case 40: // down
+                console.log("down");
+                break;
+
+                case 32: // space
+                console.log("space: getup");
+                break;      
+
+                case 90: // z
+                console.log("z");
+                break;
+
+                case 88: // x
+                console.log("x");
+                break;
+
+                case 83: // s
+                console.log("s");
+                break;
+
+                case 68: // d
+                console.log("d");
+                break;
+
+                case 69: // e
+                console.log("e");
+                break;
+
+                case 82: // r
+                console.log("r");
+                break;
+
+                case 49: // 1
+                console.log("1");
+                break;
+                
+                case 50: // 2
+                console.log("2");
+                break;
+                
+                case 51: // 3
+                console.log("3");
+                break;
+                
+                case 52: // 4
+                console.log("4");
+                break;
+
+                case 84: // t
+                console.log("t");
+                break;
+                
+                case 89: // y
+                console.log("y");
+                break;
+
+                case 71: // g
+                console.log("g");
+                break;
+
+                case 72: // h
+                console.log("h");
+                break;
+
+                case 66: // b
+                console.log("b");
+                break;
+
+                case 78: // n
+                console.log("n");
+                break;
+
+                 return; // exit this handler for other keys
+            }
+            e.preventDefault(); // prevent the default action (scroll / move caret)
+        }; 
+     
+      </script>
+      <style type="text/css">
+         button.small {
+         margin: 1px 1px 1px 1px;
+         width: 24px;
+         height: 24px;
+         font-weight: bold;
+         color: black;
+         }
+         button {
+         background: none repeat scroll 0 0 #47B224;
+         color: #FFFFFF;
+         border-radius: 5px;
+         border: 5px;
+         font-size: 7pt;
+         height: 28px;
+         width: 60px;
+         }
+         .trPic .left {
+         background: url("arrow_left.png") no-repeat scroll center center rgba(0, 0, 0, 0);
+         float: left;
+         height: 235px;
+         left: 480px;
+         margin-top: -77px;
+         opacity: 0.2;
+         width: 100px;
+         z-index: 20;
+         }
+         .trPic .right {
+         background: url("arrow_right.png") no-repeat scroll center center rgba(0, 0, 0, 0);
+         float: right;
+         height: 235px;
+         left: 480px;
+         margin-top: -77px;
+         opacity: 0.2;
+         width: 100px;
+         z-index: 20;
+         }
+         .trPic .top {
+         background: url("arrow_top.png") no-repeat scroll center center rgba(0, 0, 0, 0);
+         float: left;
+         height: 90px;
+         left: 480px;
+         opacity: 0.2;
+         top: 0;
+         width: 100px;
+         z-index: 20;
+         }
+         .trPic .bottom {
+         background: url("arrow_bottom.png") no-repeat scroll center center rgba(0, 0, 0, 0);
+         float: right;
+         height: 90px;
+         left: 480px;
+         margin-top: -9px;
+         opacity: 0.2;
+         z-index: 20;
+         }
+         .trPic .stop{ 
+         position:absolute; 
+         top:140px;
+         left:160px; 
+         width:320px; 
+         height:200px;  
+         opacity:0.1;
+         z-index: 20;
+         background: url(stop.png) no-repeat;
+         background-position: center center; 
+         border:0px solid #000000;
+         } 
+         .trPic{ 
+         position:absolute; 
+         top:0px;
+         width:640px; 
+         height:320px; 
+         background: url(window.location.hostname + ':8421?action=stream') no-repeat; 
+         border:0px solid #000000; 
+         }  
+         .keyClass{ 
+        border: 0 solid #000000;
+        height: 240px;
+        margin-left: 217px;
+        margin-top: 351px;
+        top: 204px;
+        width: 329px;
+         }                  
+         .left:hover { 
+         opacity:0.7; 
+         }
+         .right:hover { 
+         opacity:0.7; 
+         }
+         .top:hover { 
+         opacity:0.7; 
+         }
+         .bottom:hover { 
+         opacity:0.7; 
+         }         
+         .stop:hover { 
+         opacity:0.7; 
+         }
+         .danger {
+         background-color: #d9534f;
+         border-color: #d43f3a;
+         color: #fff;
+         }
+         .info {
+         background-color: #5bc0de;
+         border-color: #46b8da;
+         color: #fff;
+         } 
+         .robotPic {
+        height: 413px;
+        margin-top: 260px;
+        padding: 0 34px 32px;
+        position: absolute;
+        top: 0;
+        width: 246px;
+         }    
+         .component {
+         background: none repeat scroll 0 0 #5bc0de;
+         border: 1px solid #46b8da;
+         height: 50px;
+         margin: auto;
+         width: 100px;
+         border-radius: 20px;
+         }
+         .mid {
+         margin-top: 14px;
+         }
+         .ubody {
+         background: none repeat scroll 0 0 #5bc0de;
+         height: 102px;
+         margin: 4px auto auto;
+         width: 126px;
+         }
+         .upperSec{
+         border: 1px solid #46b8da;
+         height: 102px;
+         margin: 4px auto auto;
+         width: 226px;            
+         }
+         .lshoulder{
+         float: left;
+         margin-left: 6px;
+         }
+         .rshoulder{
+         float:right;
+         margin-right: 6px;
+         } 
+         .lshld{
+         margin-bottom: 50px;
+         margin-top: -3px;
+         }
+         .rshld{
+         margin-bottom: 50px;
+         margin-top: -3px;
+         }   
+         .lhand{
+         }
+         .rhand{
+         }
+         .sbutton {
+         background: none repeat scroll 0 0 #fff;
+         border: 1px none;
+         border-radius: 2px;
+         font-size: 13px;
+         margin: 2px;
+         padding: 5px 10px;
+         width: 71px;
+         }    
+        .tbutton{
+        background:url("arrow_top.png");
+        background-repeat: no-repeat;
+        width:40px;
+        height:40px;
+        border: 0;
+        background-size:38px;
+        }    
+        .bbutton{
+        background:url("arrow_bottom.png");
+        background-repeat: no-repeat;
+        width:40px;
+        height:40px;
+        border: 0;
+        background-size:38px;
+        } 
+        .lbutton{
+        background:url("arrow_left.png");
+        background-repeat: no-repeat;
+        width:40px;
+        height:40px;
+        border: 0;
+        background-size:18px;
+        }    
+        .rbutton{
+        background:url("arrow_right.png");
+        background-repeat: no-repeat;
+        width:19px;
+        height:40px;
+        border: 0;
+        background-size:18px;
+        }        
+      </style>
+   </head>
+   <body>
+      <div id="content" style="height: 100%; width: 100%;">
+         <div id="video" class="trPic">
+         </div>
+         <div style="clear:both"></div>
+      </div>
+      <pre>
+            1|2  3|4
+             e    t
+             r    y
+         s            g
+         d            h
+
+        z|x          b|n        
+      </pre>
+   </body>
+</html>
